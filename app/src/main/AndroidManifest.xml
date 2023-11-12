@@ -13,6 +13,11 @@
         android:theme="@style/Theme.Meetchi"
         tools:targetApi="31">
         <activity
+            android:name=".ColorTest"
+            android:exported="false"
+            android:label="@string/title_activity_color_test"
+            android:theme="@style/Theme.Meetchi" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
