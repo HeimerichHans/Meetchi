@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Meetchi.</string>
     <string name="title_activity_auth">Auth</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="title_activity_color_test">ColorTest</string>
     <string name="log_google">Connexion avec Google</string>
     <string name="log_facebook">Connexion avec Facebook</string>

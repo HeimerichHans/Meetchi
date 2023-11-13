@@ -1,28 +1,26 @@
 package com.example.meetchi
 
-import android.content.ContentValues.TAG
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.meetchi.ui.theme.MeetchiTheme
-import kotlinx.coroutines.delay
 
 class SplashScreenActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,38 +42,30 @@ class SplashScreenActivity : ComponentActivity() {
 
 @Composable
 fun AnimatedLogo() {
-    val imagePainter = painterResource(id = R.drawable.ic_launcher_foreground)
+    val imagePainter = painterResource(id = R.drawable.meetchi_vector_icon)
 
-    val numberOfLoops = 30
-    val animationDuration = 1000 // Set the desired animation duration in milliseconds
-
-    var isZoomed by remember { mutableStateOf(false) }
-    var loopCounter by remember { mutableStateOf(0) }
-
-    val scale by animateFloatAsState(
-        targetValue = if (isZoomed) 1.3f else 1f,
-        animationSpec = tween(durationMillis = animationDuration.toInt()), label = ""
+    val infiniteTransition = rememberInfiniteTransition(label = "infinite transition")
+    val scale by infiniteTransition.animateFloat(
+        initialValue = 0.3f,
+        targetValue = 0.4f,
+        animationSpec = infiniteRepeatable(tween(2000), RepeatMode.Reverse),
+        label = "scale"
     )
-
-    LaunchedEffect(scale) {
-        repeat(numberOfLoops) {
-            isZoomed = true
-            delay(animationDuration.toLong())
-            isZoomed = false
-            delay(animationDuration.toLong())
-        }
-        loopCounter++
-    }
 
     Image(
         painter = imagePainter,
         contentDescription = null,
         modifier = Modifier
             .fillMaxSize()
-            .scale(scale)
-    )
-}
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+                transformOrigin = TransformOrigin.Center
+            }
 
+    )
+
+}
 
 @Preview
 @Composable
