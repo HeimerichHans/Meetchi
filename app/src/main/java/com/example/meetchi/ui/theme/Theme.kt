@@ -14,21 +14,21 @@ enum class AppTheme {
 }
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
+    primary = Color(0xFFFF7917),
     secondary = PurpleGrey80,
     tertiary = Pink80,
     background = Color(0xFF0E0E0E)
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
+    primary = Color(0xFFFF7917),
     secondary = PurpleGrey40,
     tertiary = Pink40,
     background = Color(0xFFFFFFFF)
 )
 
 private val StandardColorScheme = lightColorScheme(
-    primary = Purple40,
+    primary = Color(0xFFFF7917),
     secondary = PurpleGrey40,
     tertiary = Pink40,
     background = Color(0xFFFED4E8)
