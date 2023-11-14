@@ -7,4 +7,5 @@
     <string name="log_facebook">Connexion avec Facebook</string>
     <string name="log_mail">Connexion avec un mail</string>
     <string name="ask_how_log">Comment souhaitez-vous vous connecter ?</string>
+    <string name="title_activity_home">HomeActivity</string>
 </resources>
