@@ -1,28 +1,39 @@
 package com.example.meetchi
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.example.meetchi.ui.AnimatedLogo
+import com.example.meetchi.ui.AuthActivity
+import com.example.meetchi.ui.HomeActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : ComponentActivity() {
+
+    companion object{
+        lateinit var auth: FirebaseAuth
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
         setContent {
             MeetchiTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-
+                AnimatedLogo()
+                if( user!= null){
+                    Log.d("UserStatus","Connected")
+                    intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }else{
+                    Log.d("UserStatus","Not Connected")
+                    intent = Intent(this, AuthActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             }
         }

@@ -8,4 +8,9 @@
     <string name="log_mail">Connexion avec un mail</string>
     <string name="ask_how_log">Comment souhaitez-vous vous connecter ?</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="client_id">500987137737-a0bkj35mqdeqcl8fnr0149sojnhpr83f.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">2508001442706800</string>
+    <string name="fb_login_protocol_scheme">fb2508001442706800</string>
+    <string name="facebook_client_token">0fd57a62fa1d2bdb9a3c23bf7ec29403</string>
+    <string name="title_activity_facebook_auth">FacebookAuthActivity</string>
 </resources>

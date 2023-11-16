@@ -1,4 +1,4 @@
-package com.example.meetchi
+package com.example.meetchi.ui
 
 import android.content.Context
 import android.os.Bundle

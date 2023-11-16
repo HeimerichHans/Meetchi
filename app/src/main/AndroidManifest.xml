@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,17 +15,27 @@
         android:theme="@style/Theme.Meetchi"
         tools:targetApi="31">
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".util.FacebookAuthActivity"
+            android:exported="false"
+            android:label="@string/title_activity_facebook_auth"
+            android:theme="@style/Theme.Meetchi" />
+        <activity
+            android:name=".ui.SplashScreenActivity"
             android:exported="false"
             android:label="@string/title_activity_splash_screen"
             android:theme="@style/Theme.Meetchi" />
         <activity
-            android:name=".AuthActivity"
+            android:name=".ui.HomeActivity"
+            android:exported="false"
+            android:label="Home"
+            android:theme="@style/Theme.Meetchi" />
+        <activity
+            android:name=".ui.AuthActivity"
             android:exported="false"
             android:label="@string/title_activity_auth"
             android:theme="@style/Theme.Meetchi" />
         <activity
-            android:name=".ColorTest"
+            android:name=".ui.ColorTest"
             android:exported="false"
             android:label="@string/title_activity_color_test"
             android:theme="@style/Theme.Meetchi" />
@@ -38,6 +50,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
     </application>
 
 </manifest>

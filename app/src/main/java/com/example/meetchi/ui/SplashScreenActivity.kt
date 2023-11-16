@@ -1,6 +1,5 @@
-package com.example.meetchi
+package com.example.meetchi.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,6 +19,7 @@ import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.meetchi.R
 import com.example.meetchi.ui.theme.MeetchiTheme
 
 class SplashScreenActivity : ComponentActivity() {
@@ -42,7 +42,7 @@ class SplashScreenActivity : ComponentActivity() {
 
 @Composable
 fun AnimatedLogo() {
-    val imagePainter = painterResource(id = R.drawable.meetchi_vector_icon)
+    val imagePainter = painterResource(id = R.drawable.meetchi_app_icon)
 
     val infiniteTransition = rememberInfiniteTransition(label = "infinite transition")
     val scale by infiniteTransition.animateFloat(
