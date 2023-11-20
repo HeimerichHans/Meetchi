@@ -25,4 +25,10 @@
     <string name="confirmPassword">Confirmer mot de passe</string>
     <string name="termsAccept">J\'accepte les</string>
     <string name="terms">termes et services</string>
+    <string name="screen_profile">profile</string>
+    <string name="screen_swipe">swipe</string>
+    <string name="screen_chat">chat</string>
+    <string name="title_activity_swipe">SwipeActivity</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 </resources>
