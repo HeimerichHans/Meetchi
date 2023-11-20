@@ -15,6 +15,7 @@
     <string name="title_activity_facebook_auth">FacebookAuthActivity</string>
     <string name="register">Inscription</string>
     <string name="login">Connexion</string>
+    <string name="logout">Déconnexion</string>
     <string name="mail">E-mail</string>
     <string name="password">Mot de passe</string>
     <string name="AskMember">Pas encore membre ?</string>
