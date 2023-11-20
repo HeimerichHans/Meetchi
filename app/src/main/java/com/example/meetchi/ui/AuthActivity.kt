@@ -1,11 +1,12 @@
 package com.example.meetchi.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -44,7 +45,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.core.app.ActivityCompat
 import com.example.meetchi.MainActivity
 import com.example.meetchi.R
 import com.example.meetchi.ui.theme.AppTheme
@@ -53,7 +53,9 @@ import com.example.meetchi.util.enumUtil
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
+import com.example.meetchi.util.IconAuth
 
 class AuthActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,25 +66,42 @@ class AuthActivity : ComponentActivity() {
             }
         }
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 13 && resultCode == RESULT_OK) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            val account = task.getResult(ApiException::class.java)!!
-            firebaseAuthWithGoogle(account.idToken!!)
+
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            handleSignInResult(data)
         }
     }
-    private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
+
+    private fun handleSignInResult(data: Intent?) {
+        val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            if (account != null) {
+                val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                signInWithCredential(credential)
+            } else {
+                // Handle the error
+            }
+        } catch (e: ApiException) {
+            // Handle the error
+        }
+    }
+
+    private fun signInWithCredential(credential: AuthCredential) {
         MainActivity.auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d("UserStatus","Connection Success")
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("UserStatus", "Connection Success")
                     startActivity(Intent(this, HomeActivity::class.java))
                     finish()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("UserStatus", "signInWithCredential:failure", task.exception)
+                    // Handle the error
                 }
-            }.addOnFailureListener {
-                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
     }
 
@@ -96,44 +115,20 @@ class AuthActivity : ComponentActivity() {
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement  = Arrangement.Bottom
+                verticalArrangement  = Arrangement.Top
             )
             {
-                IconAuthPreview()
+                Spacer(modifier.height(110.dp))
+                IconAuth()
                 Spacer(modifier.height(100.dp))
                 Text(text = stringResource(R.string.ask_how_log),
                     fontWeight = FontWeight.Bold,
                     fontSize = 25.sp,
                     modifier = Modifier.padding(horizontal = 30.dp))
+                Spacer(modifier.height(20.dp))
                 ListButtonAuth()
-                InscriptionAuth()
-            }
-        }
-    }
 
-    @OptIn(ExperimentalTextApi::class)
-    @Composable
-    private fun IconAuth()
-    {
-        Column (horizontalAlignment = Alignment.CenterHorizontally)
-        {
-            val gradientColors = listOf(Color(0xFFFFC302), Color(0xFFFC6B2C))
-            val image = painterResource(R.drawable.meetchi_app_icon)
-            Image(
-                modifier = Modifier.size(160.dp),
-                painter = image,
-                contentDescription = null
-            )
-            Text(
-                text = stringResource(R.string.app_name),
-                fontWeight = FontWeight.Bold,
-                fontSize = 35.sp,
-                style = TextStyle(
-                    brush = Brush.verticalGradient(
-                        colors = gradientColors
-                    )
-                )
-            )
+            }
         }
     }
 
@@ -161,16 +156,19 @@ class AuthActivity : ComponentActivity() {
         Button(onClick = {
             when(type){
                 enumUtil.LoginType.Google_type -> {
-                    ActivityCompat.startActivityForResult(this,googleSignInClient.signInIntent, 13,null)
+                    resultLauncher.launch(googleSignInClient.signInIntent)
                 }
                 enumUtil.LoginType.Facebook_type -> {
                     intent = Intent(this, FacebookAuthActivity::class.java)
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                    startActivity(intent)
+                    resultLauncher.launch(intent)
                     finish()
                 }
                 enumUtil.LoginType.Mail_type -> {
-
+                    intent = Intent(this, MailActivity::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    startActivity(intent)
+                    finish()
                 }
             }
         },
@@ -225,47 +223,11 @@ class AuthActivity : ComponentActivity() {
         }
     }
 
-    @Composable
-    fun InscriptionAuth()
-    {
-        Column (modifier = Modifier
-            .padding(30.dp),
-            horizontalAlignment = Alignment.Start)
-        {
-            Text(text = "Pas encore membre ?",
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-                modifier = Modifier
-                    .height(30.dp)
-                    .fillMaxSize())
-            TextButton(onClick = {})
-            {
-                Text("Inscription")
-            }
-        }
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun InscriptionAuthPreview() {
-        MeetchiTheme {
-            InscriptionAuth()
-        }
-    }
-
     @Preview(showBackground = true)
     @Composable
     fun ListButtonAuthPreview() {
         MeetchiTheme {
             ListButtonAuth()
-        }
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun IconAuthPreview() {
-        MeetchiTheme {
-            IconAuth()
         }
     }
 

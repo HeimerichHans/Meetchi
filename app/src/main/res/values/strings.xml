@@ -13,4 +13,16 @@
     <string name="fb_login_protocol_scheme">fb2508001442706800</string>
     <string name="facebook_client_token">0fd57a62fa1d2bdb9a3c23bf7ec29403</string>
     <string name="title_activity_facebook_auth">FacebookAuthActivity</string>
+    <string name="register">Inscription</string>
+    <string name="login">Connexion</string>
+    <string name="mail">E-mail</string>
+    <string name="password">Mot de passe</string>
+    <string name="AskMember">Pas encore membre ?</string>
+    <string name="AskAlreadyMember">Déjà membre ?</string>
+    <string name="title_activity_mail">MailActivity</string>
+    <string name="title_activity_app_icon_on_login">AppIconOnLoginActivity</string>
+    <string name="title_activity_register_mail">RegisterMailActivity</string>
+    <string name="confirmPassword">Confirmer mot de passe</string>
+    <string name="termsAccept">J\'accepte les</string>
+    <string name="terms">termes et services</string>
 </resources>
