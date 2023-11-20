@@ -42,13 +42,13 @@ class SplashScreenActivity : ComponentActivity() {
 
 @Composable
 fun AnimatedLogo() {
-    val imagePainter = painterResource(id = R.drawable.meetchi_app_icon)
+    val imagePainter = painterResource(id = R.drawable.ic_meetchi_foreground)
 
     val infiniteTransition = rememberInfiniteTransition(label = "infinite transition")
     val scale by infiniteTransition.animateFloat(
         initialValue = 0.3f,
-        targetValue = 0.4f,
-        animationSpec = infiniteRepeatable(tween(2000), RepeatMode.Reverse),
+        targetValue = 0.35f,
+        animationSpec = infiniteRepeatable(tween(1000), RepeatMode.Reverse),
         label = "scale"
     )
 
