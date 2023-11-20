@@ -1,0 +1,17 @@
+<!-- res/drawable/ic_meetchi.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background -->
+    <item
+        android:id="@+id/backgroundItem"
+        android:drawable="@drawable/ic_meetchi_background" />
+
+    <!-- Foreground (Icon) -->
+    <item
+        android:id="@+id/foregroundItem"
+        android:drawable="@drawable/ic_meetchi_foreground"
+        android:gravity="center"
+        android:width="80dp"
+        android:height="110dp"/>
+
+</layer-list>
