@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import com.example.meetchi.MainActivity
 import com.example.meetchi.R
 import com.example.meetchi.ui.theme.MeetchiTheme
+import com.example.meetchi.util.AnimationCancel
 import com.example.meetchi.util.BackArrowAuth
 import com.example.meetchi.util.IconAuth
 
@@ -195,7 +196,7 @@ class RegisterMailActivity : ComponentActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("UserStatus", "register success")
-                    startActivity(Intent(this, HomeActivity::class.java))
+                    startActivity(Intent(this, HomeActivity::class.java), AnimationCancel.CancelAnimation(this@RegisterMailActivity))
                     finish()
                 } else {
                     Log.d("UserStatus", "register failed")
@@ -219,8 +220,7 @@ class RegisterMailActivity : ComponentActivity() {
                     .fillMaxSize())
             TextButton(onClick = {
                 intent = Intent(context, MailActivity::class.java)
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                startActivity(intent)
+                startActivity(intent, AnimationCancel.CancelAnimation(this@RegisterMailActivity))
                 finish()
             })
             {

@@ -14,6 +14,7 @@ import com.example.meetchi.ui.AnimatedLogo
 import com.example.meetchi.ui.AuthActivity
 import com.example.meetchi.ui.HomeActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
+import com.example.meetchi.util.AnimationCancel
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -47,11 +48,11 @@ class MainActivity : ComponentActivity() {
                             if (user != null) {
                                 Log.d("UserStatus", "Connected")
                                 val intent = Intent(this@MainActivity, HomeActivity::class.java)
-                                startActivity(intent)
+                                startActivity(intent, AnimationCancel.CancelAnimation(this@MainActivity))
                             } else {
                                 Log.d("UserStatus", "Not Connected")
                                 val intent = Intent(this@MainActivity, AuthActivity::class.java)
-                                startActivity(intent)
+                                startActivity(intent, AnimationCancel.CancelAnimation(this@MainActivity))
                             }
 
                             // Finish the current activity

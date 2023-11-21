@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.sp
 import com.example.meetchi.MainActivity
 import com.example.meetchi.R
 import com.example.meetchi.ui.theme.MeetchiTheme
-import com.example.meetchi.util.AppUtilOnLoginActivity
+import com.example.meetchi.util.AnimationCancel
 import com.example.meetchi.util.BackArrowAuth
 import com.example.meetchi.util.IconAuth
 
@@ -161,8 +161,7 @@ class MailActivity : ComponentActivity() {
                     .fillMaxSize())
             TextButton(onClick = {
                 intent = Intent(context, RegisterMailActivity::class.java)
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                startActivity(intent)
+                startActivity(intent, AnimationCancel.CancelAnimation(this@MailActivity))
                 finish()
             })
             {
@@ -176,7 +175,7 @@ class MailActivity : ComponentActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("UserStatus", "Connection success")
-                    startActivity(Intent(this, HomeActivity::class.java))
+                    startActivity(Intent(this, HomeActivity::class.java), AnimationCancel.CancelAnimation(this@MailActivity))
                     finish()
                 } else {
                     Log.d("UserStatus", "Connection failed")
