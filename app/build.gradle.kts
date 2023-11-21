@@ -52,7 +52,7 @@ android {
 
 dependencies {
 
-    implementation("com.facebook.android:facebook-android-sdk:[8,9)")
+    implementation("com.facebook.android:facebook-android-sdk:latest.release")
     implementation("com.facebook.android:facebook-login:latest.release")
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
     implementation("com.google.android.gms:play-services-auth:20.7.0")
