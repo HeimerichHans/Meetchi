@@ -153,6 +153,7 @@ class AuthActivity : ComponentActivity() {
             .requestEmail()
             .build()
         val googleSignInClient = GoogleSignIn.getClient(context,gso)
+        googleSignInClient.signOut()
         Button(onClick = {
             when(type){
                 enumUtil.LoginType.Google_type -> {
