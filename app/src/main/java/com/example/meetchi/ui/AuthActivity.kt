@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import com.example.meetchi.MainActivity
 import com.example.meetchi.R
 import com.example.meetchi.ui.theme.AppTheme
+import com.example.meetchi.util.AnimationCancel
 import com.example.meetchi.util.FacebookAuthActivity
 import com.example.meetchi.util.enumUtil
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -95,7 +96,7 @@ class AuthActivity : ComponentActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("UserStatus", "Connection Success")
-                    startActivity(Intent(this, HomeActivity::class.java))
+                    startActivity(Intent(this, HomeActivity::class.java), AnimationCancel.CancelAnimation(this@AuthActivity))
                     finish()
                 } else {
                     // If sign in fails, display a message to the user.
@@ -161,14 +162,12 @@ class AuthActivity : ComponentActivity() {
                 }
                 enumUtil.LoginType.Facebook_type -> {
                     intent = Intent(this, FacebookAuthActivity::class.java)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     resultLauncher.launch(intent)
                     finish()
                 }
                 enumUtil.LoginType.Mail_type -> {
                     intent = Intent(this, MailActivity::class.java)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                    startActivity(intent)
+                    startActivity(intent, AnimationCancel.CancelAnimation(this@AuthActivity))
                     finish()
                 }
             }

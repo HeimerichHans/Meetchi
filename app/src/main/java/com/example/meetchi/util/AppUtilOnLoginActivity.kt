@@ -86,7 +86,7 @@ public fun BackArrowAuth(context: Context)
 
 fun onIconClick(context: Context) {
     val intent = Intent(context, AuthActivity::class.java)
-    context.startActivity(intent)
+    context.startActivity(intent, AnimationCancel.CancelAnimation(context))
 }
 
 @Preview(showBackground = true)

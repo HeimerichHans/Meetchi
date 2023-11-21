@@ -36,7 +36,7 @@ class FacebookAuthActivity : ComponentActivity() {
                 }
 
                 override fun onCancel() {
-                    startActivity(Intent(context, AuthActivity::class.java))
+                    startActivity(Intent(context, AuthActivity::class.java), AnimationCancel.CancelAnimation(this@FacebookAuthActivity))
                     finish()
                 }
 
@@ -77,7 +77,7 @@ class FacebookAuthActivity : ComponentActivity() {
     private fun updateUI(user: FirebaseUser?){
         Log.d("FacebookAuth","Go Home")
         intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
+        startActivity(intent, AnimationCancel.CancelAnimation(this@FacebookAuthActivity))
         finish()
     }
 }
