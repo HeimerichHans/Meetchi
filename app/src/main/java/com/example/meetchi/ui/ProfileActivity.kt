@@ -1,6 +1,5 @@
 package com.example.meetchi.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -15,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.content.ContextCompat.startActivity
 import com.example.meetchi.MainActivity
 import com.example.meetchi.R
 import com.example.meetchi.ui.theme.MeetchiTheme

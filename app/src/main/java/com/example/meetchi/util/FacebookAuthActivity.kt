@@ -8,7 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.platform.LocalContext
 import com.example.meetchi.MainActivity
-import com.example.meetchi.ui.AuthActivity
+import com.example.meetchi.ui.login.AuthActivity
 import com.example.meetchi.ui.HomeActivity
 import com.facebook.AccessToken
 import com.facebook.CallbackManager

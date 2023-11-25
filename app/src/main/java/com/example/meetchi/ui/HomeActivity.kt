@@ -12,11 +12,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Send
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -25,7 +23,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.meetchi.ui.theme.MeetchiTheme
-import com.example.meetchi.util.Screen
+import com.example.meetchi.util.ScreenHome
 
 class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,9 +41,9 @@ fun Home(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
 
     val items = listOf(
-        Screen.Like,
-        Screen.Chat,
-        Screen.Profile,
+        ScreenHome.Like,
+        ScreenHome.Chat,
+        ScreenHome.Profile,
     )
 
     Scaffold(
@@ -57,9 +55,9 @@ fun Home(modifier: Modifier = Modifier) {
                     BottomNavigationItem(
                         icon = {
                             when (screen) {
-                                Screen.Like -> Icon(Icons.Filled.Favorite, contentDescription = null)
-                                Screen.Chat -> Icon(Icons.Filled.Send, contentDescription = null)
-                                Screen.Profile -> Icon(Icons.Filled.Person, contentDescription = null)
+                                ScreenHome.Like -> Icon(Icons.Filled.Favorite, contentDescription = null)
+                                ScreenHome.Chat -> Icon(Icons.Filled.Send, contentDescription = null)
+                                ScreenHome.Profile -> Icon(Icons.Filled.Person, contentDescription = null)
                             }
                         },
                         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
@@ -83,16 +81,16 @@ fun Home(modifier: Modifier = Modifier) {
             }
         }
     ) { innerPadding ->
-        NavHost(navController, startDestination = Screen.Like.route, Modifier.padding(innerPadding)) {
-            composable(Screen.Like.route) {
+        NavHost(navController, startDestination = ScreenHome.Like.route, Modifier.padding(innerPadding)) {
+            composable(ScreenHome.Like.route) {
                 // Content for the Like screen
                 SwipeScreen()
             }
-            composable(Screen.Chat.route) {
+            composable(ScreenHome.Chat.route) {
                 // Content for the Chat screen
                 ChatScreen()
             }
-            composable(Screen.Profile.route) {
+            composable(ScreenHome.Profile.route) {
                 // Content for the Profile screen
                 ProfileScreen()
             }

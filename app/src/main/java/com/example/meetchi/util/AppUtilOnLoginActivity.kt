@@ -32,7 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.meetchi.R
-import com.example.meetchi.ui.AuthActivity
+import com.example.meetchi.ui.login.AuthActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
 
 class AppUtilOnLoginActivity : ComponentActivity() {

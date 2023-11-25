@@ -1,4 +1,4 @@
-package com.example.meetchi.ui
+package com.example.meetchi.ui.login
 
 import android.app.Activity
 import android.content.Intent
@@ -17,12 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.ExperimentalTextApi
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -41,12 +38,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.TextButton
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.meetchi.MainActivity
 import com.example.meetchi.R
+import com.example.meetchi.ui.AccountCheckerReadyActivity
 import com.example.meetchi.ui.theme.AppTheme
 import com.example.meetchi.util.AnimationCancel
 import com.example.meetchi.util.FacebookAuthActivity
@@ -96,7 +93,7 @@ class AuthActivity : ComponentActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("UserStatus", "Connection Success")
-                    startActivity(Intent(this, HomeActivity::class.java), AnimationCancel.CancelAnimation(this@AuthActivity))
+                    startActivity(Intent(this, AccountCheckerReadyActivity::class.java), AnimationCancel.CancelAnimation(this@AuthActivity))
                     finish()
                 } else {
                     // If sign in fails, display a message to the user.
