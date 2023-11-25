@@ -10,9 +10,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import com.example.meetchi.ui.AccountCheckerReadyActivity
 import com.example.meetchi.ui.AnimatedLogo
-import com.example.meetchi.ui.AuthActivity
-import com.example.meetchi.ui.HomeActivity
+import com.example.meetchi.ui.login.AuthActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
 import com.example.meetchi.util.AnimationCancel
 import com.google.firebase.auth.FirebaseAuth
@@ -28,7 +28,6 @@ class MainActivity : ComponentActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
         setContent {
@@ -47,7 +46,7 @@ class MainActivity : ComponentActivity() {
 
                             if (user != null) {
                                 Log.d("UserStatus", "Connected")
-                                val intent = Intent(this@MainActivity, HomeActivity::class.java)
+                                val intent = Intent(this@MainActivity, AccountCheckerReadyActivity::class.java)
                                 startActivity(intent, AnimationCancel.CancelAnimation(this@MainActivity))
                             } else {
                                 Log.d("UserStatus", "Not Connected")

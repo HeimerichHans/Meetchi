@@ -29,7 +29,27 @@
     <string name="screen_profile">profile</string>
     <string name="screen_swipe">swipe</string>
     <string name="screen_chat">chat</string>
+    <string name="screen_identity">identity</string>
+    <string name="screen_gender">gender</string>
+    <string name="screen_phone">phone</string>
+    <string name="screen_description">description</string>
     <string name="title_activity_swipe">SwipeActivity</string>
     <string name="title_activity_chat">ChatActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="title_activity_account_checker_ready">AccountCheckerReadyActivity</string>
+    <string name="title_activity_identity">IdentityActivity</string>
+    <string name="title_activity_gender">GenderActivity</string>
+    <string name="name">Nom</string>
+    <string name="surname">Prenom</string>
+    <string name="pseudonyme">Pseudonyme</string>
+    <string name="description">Description</string>
+    <string name="date">Date de naissance</string>
+    <string name="genderBoy">Monsieur</string>
+    <string name="genderGirl">Madame</string>
+    <string name="genderOther">Autres</string>
+    <string name="genderAsk">Comment préférez-vous qu’on vous identifie ?</string>
+    <string name="title_activity_description">DescriptionActivity</string>
+    <string name="title_activity_phone_number">PhoneNumberActivity</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
