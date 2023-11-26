@@ -96,7 +96,7 @@ fun ScreenIdentity(navController: NavController, modifier: Modifier = Modifier) 
                     // Mettez à jour la position du curseur
                     // Cela peut ne pas être parfait, vous devrez peut-être ajuster en fonction de votre logique
                 },
-                label = { Text(stringResource(R.string.date)) },
+                label = { Text(stringResource(R.string.dateBirth)) },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Done

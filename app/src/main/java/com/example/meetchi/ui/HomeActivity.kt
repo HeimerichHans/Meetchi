@@ -1,6 +1,8 @@
 package com.example.meetchi.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.padding
@@ -13,31 +15,52 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.meetchi.MainActivity
+import com.example.meetchi.model.User
 import com.example.meetchi.ui.theme.MeetchiTheme
 import com.example.meetchi.navigation.ScreenHome
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.toObject
+import com.google.firebase.ktx.Firebase
 
 class HomeActivity : ComponentActivity() {
+    @SuppressLint("UnrememberedMutableState")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val db = Firebase.firestore
+            var userDB by remember { mutableStateOf(User()) }
+            db.collection("User").document(MainActivity.auth.uid.toString()).get().addOnSuccessListener { document ->
+                if (document != null) {
+                    userDB = document.toObject<User>()!!
+                } else {
+                    Log.d("Firestore:Log", "Document Failed")
+                }
+            }.addOnFailureListener { exception ->
+                Log.d("Firestore:Log", "get failed with ", exception)
+            }
             MeetchiTheme {
-                Home()
+                Home(mutableStateOf(userDB))
             }
         }
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
-fun Home(modifier: Modifier = Modifier) {
+fun Home(userDB : MutableState<User> , modifier: Modifier = Modifier) {
     val navController = rememberNavController()
 
     val items = listOf(
@@ -92,16 +115,8 @@ fun Home(modifier: Modifier = Modifier) {
             }
             composable(ScreenHome.Profile.route) {
                 // Content for the Profile screen
-                ProfileScreen()
+                ProfileScreen(userDB)
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomePreview() {
-    MeetchiTheme {
-        Home()
     }
 }

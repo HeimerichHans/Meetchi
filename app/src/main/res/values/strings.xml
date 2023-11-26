@@ -44,7 +44,8 @@
     <string name="surname">Prenom</string>
     <string name="pseudonyme">Pseudonyme</string>
     <string name="description">Description</string>
-    <string name="date">Date de naissance</string>
+    <string name="dateBirth">Date de naissance</string>
+    <string name="save">Enregistrer</string>
     <string name="genderBoy">Monsieur</string>
     <string name="genderGirl">Madame</string>
     <string name="genderOther">Autres</string>
