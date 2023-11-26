@@ -23,7 +23,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.meetchi.ui.theme.MeetchiTheme
-import com.example.meetchi.util.ScreenHome
+import com.example.meetchi.navigation.ScreenHome
 
 class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

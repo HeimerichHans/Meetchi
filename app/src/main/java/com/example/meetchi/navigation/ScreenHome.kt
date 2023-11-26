@@ -1,4 +1,4 @@
-package com.example.meetchi.util
+package com.example.meetchi.navigation
 
 import androidx.annotation.StringRes
 import com.example.meetchi.R

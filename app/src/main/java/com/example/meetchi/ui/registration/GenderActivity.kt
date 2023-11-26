@@ -33,7 +33,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.meetchi.R
 import com.example.meetchi.ui.theme.MeetchiTheme
-import com.example.meetchi.util.ScreenRegister
+import com.example.meetchi.navigation.ScreenRegister
 
 @Composable
 fun ScreenGender(navController: NavController, modifier: Modifier = Modifier) {

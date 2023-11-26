@@ -40,7 +40,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.meetchi.MainActivity
 import com.example.meetchi.R
-import com.example.meetchi.ui.AccountCheckerReadyActivity
+import com.example.meetchi.util.AccountCheckerReadyActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
 import com.example.meetchi.util.AnimationCancel
 import com.google.firebase.Firebase

@@ -43,7 +43,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.meetchi.MainActivity
 import com.example.meetchi.R
-import com.example.meetchi.ui.AccountCheckerReadyActivity
+import com.example.meetchi.util.AccountCheckerReadyActivity
 import com.example.meetchi.ui.theme.AppTheme
 import com.example.meetchi.util.AnimationCancel
 import com.example.meetchi.util.FacebookAuthActivity

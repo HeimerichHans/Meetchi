@@ -15,7 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.meetchi.model.User
 import com.example.meetchi.ui.theme.MeetchiTheme
-import com.example.meetchi.util.ScreenRegister
+import com.example.meetchi.navigation.ScreenRegister
 
 class RegistrationActivity : ComponentActivity() {
 
