@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.meetchi.MainActivity
 import com.example.meetchi.R
-import com.example.meetchi.ui.AccountCheckerReadyActivity
+import com.example.meetchi.util.AccountCheckerReadyActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
 import com.example.meetchi.util.AnimationCancel
 import com.example.meetchi.util.BackArrowAuth

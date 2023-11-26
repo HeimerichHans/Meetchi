@@ -10,7 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import com.example.meetchi.ui.AccountCheckerReadyActivity
+import com.example.meetchi.util.AccountCheckerReadyActivity
 import com.example.meetchi.ui.AnimatedLogo
 import com.example.meetchi.ui.login.AuthActivity
 import com.example.meetchi.ui.theme.MeetchiTheme

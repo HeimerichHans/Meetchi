@@ -1,4 +1,4 @@
-package com.example.meetchi.ui
+package com.example.meetchi.util
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,9 +11,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.meetchi.MainActivity
 import com.example.meetchi.model.User
+import com.example.meetchi.ui.HomeActivity
 import com.example.meetchi.ui.registration.RegistrationActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
-import com.example.meetchi.util.AnimationCancel
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
@@ -42,6 +42,11 @@ class AccountCheckerReadyActivity : ComponentActivity() {
                                     val intent = Intent(this@AccountCheckerReadyActivity, RegistrationActivity::class.java)
                                     startActivity(intent, AnimationCancel.CancelAnimation(this@AccountCheckerReadyActivity))
                                 }
+                            }
+                            else{
+                                Log.d("Firestore:Log", "User Failed")
+                                val intent = Intent(this@AccountCheckerReadyActivity, RegistrationActivity::class.java)
+                                startActivity(intent, AnimationCancel.CancelAnimation(this@AccountCheckerReadyActivity))
                             }
                         } else {
                             Log.d("Firestore:Log", "Document Failed")
