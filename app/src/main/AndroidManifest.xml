@@ -10,7 +10,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/ic_meetchi"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_meetchi"
+        android:roundIcon="@drawable/ic_meetchi_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Meetchi"
         tools:targetApi="31" >

@@ -11,7 +11,7 @@
         android:id="@+id/foregroundItem"
         android:drawable="@drawable/ic_meetchi_foreground"
         android:gravity="center"
-        android:width="80dp"
-        android:height="110dp"/>
+        android:width="108dp"
+        android:height="150dp"/>
 
 </layer-list>

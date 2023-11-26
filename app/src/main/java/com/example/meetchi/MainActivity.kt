@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     AnimatedLogo()
 
                     LaunchedEffect(key1 = true) {
-                        delay(4000)
+                        delay(2000)
 
                         // Execute the code after the delay
                         CoroutineScope(Dispatchers.Main).launch {
