@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "500987137737",
+    "project_id": "meetchi-50f86",
+    "storage_bucket": "meetchi-50f86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500987137737:android:788f6e777b29e158d90718",
+        "android_client_info": {
+          "package_name": "com.example.meetchi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe_nyGrHAWv7k-hGN51s1l4atWMzzsBVI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
