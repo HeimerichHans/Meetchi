@@ -48,6 +48,14 @@ import com.example.meetchi.util.AnimationCancel
 import com.example.meetchi.util.BackArrowAuth
 import com.example.meetchi.util.IconAuth
 
+/*
+*******************************************************
+*         Activity: RegisterMailActivity              *
+*******************************************************
+|  Description:                                       |
+|  Activité gérant l'inscription par email.           |
+*******************************************************
+*/
 class RegisterMailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +65,15 @@ class RegisterMailActivity : ComponentActivity() {
             }
         }
     }
+
+    /*
+    *******************************************************
+    *        Fonction Composable: PageRegisterMail        *
+    *******************************************************
+    |  Description:                                       |
+    |  Compose la page d'inscription par email.           |
+    *******************************************************
+    */
     @Composable
     private fun PageRegisterMail()
     {
@@ -78,9 +95,19 @@ class RegisterMailActivity : ComponentActivity() {
         }
     }
 
+    /*
+    *******************************************************
+    *         Fonction Composable: RegisterMail           *
+    *******************************************************
+    |  Description:                                       |
+    |  Compose la section d'inscription par email.        |
+    *******************************************************
+    */
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun RegisterMail(modifier: Modifier = Modifier) {
+        // Les états pour stocker le nom d'utilisateur, le mot de passe, la confirmation de mot de passe,
+        // l'acceptation des conditions d'utilisation, et l'état d'activation du bouton d'inscription.
         var username by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         var confirmPassword by remember { mutableStateOf("") }
@@ -99,6 +126,7 @@ class RegisterMailActivity : ComponentActivity() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center)
         {
+            // Champ de texte pour le nom d'utilisateur
             TextField(
                 value = username,
                 onValueChange = { username = it },
@@ -109,13 +137,13 @@ class RegisterMailActivity : ComponentActivity() {
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = {
-                        // Move focus to the next text field or perform any action
                     }
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 5.dp)
             )
+            // Champ de texte pour le mot de passe
             TextField(
                 value = password,
                 onValueChange = { password = it },
@@ -137,6 +165,7 @@ class RegisterMailActivity : ComponentActivity() {
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 5.dp)
             )
+            // Champ de texte pour la confirmation de mot de passe
             TextField(
                 value = confirmPassword,
                 onValueChange = { confirmPassword = it },
@@ -158,6 +187,7 @@ class RegisterMailActivity : ComponentActivity() {
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 5.dp)
             )
+            // Ligne pour l'acceptation des conditions d'utilisation
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
@@ -176,6 +206,7 @@ class RegisterMailActivity : ComponentActivity() {
                 }
             }
             Spacer(modifier.height(10.dp))
+            // Bouton d'inscription
             Button(
                 onClick = {
                     // Handle login action
@@ -187,24 +218,44 @@ class RegisterMailActivity : ComponentActivity() {
             ) {
                 Text(stringResource(R.string.register))
             }
+            // Lien vers la page de connexion
             AlreadyRegister()
         }
     }
 
+   /*
+   *******************************************************
+   *          Fonction Composable: performRegister       *
+   *******************************************************
+   |  Description:                                       |
+   |  Effectue l'inscription de l'utilisateur avec les   |
+   |  informations fournies.                             |
+   *******************************************************
+   */
     fun performRegister(username: String, password: String) {
         MainActivity.auth.createUserWithEmailAndPassword(username, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
+                    // Succès de l'inscription, mettre à jour l'interface utilisateur avec les informations de l'utilisateur connecté
                     Log.d("UserStatus", "register success")
                     startActivity(Intent(this, AccountCheckerReadyActivity::class.java), AnimationCancel.CancelAnimation(this@RegisterMailActivity))
                     finish()
                 } else {
+                    // Échec de l'inscription, gérer l'erreur
                     Log.d("UserStatus", "register failed")
                 }
             }
     }
 
+    /*
+    *******************************************************
+    *      Fonction Composable: AlreadyRegister           *
+    *******************************************************
+    |  Description:                                       |
+    |  Compose le lien vers la page de connexion pour les |
+    |  utilisateurs déjà inscrits.                        |
+    *******************************************************
+    */
     @Composable
     fun AlreadyRegister()
     {
@@ -219,6 +270,7 @@ class RegisterMailActivity : ComponentActivity() {
                 modifier = Modifier
                     .height(30.dp)
                     .fillMaxSize())
+            // Bouton de lien vers la page de connexion
             TextButton(onClick = {
                 intent = Intent(context, MailActivity::class.java)
                 startActivity(intent, AnimationCancel.CancelAnimation(this@RegisterMailActivity))
@@ -230,6 +282,15 @@ class RegisterMailActivity : ComponentActivity() {
         }
     }
 
+    /*
+    *******************************************************
+    *      Preview: PageRegisterMailPreview               *
+    *******************************************************
+    |  Description:                                       |
+    |  Fonction de prévisualisation pour la page          |
+    |  d'inscription par email.                           |
+    *******************************************************
+    */
     @Preview(showBackground = true)
     @Composable
     private fun PageMailPreview() {
@@ -238,6 +299,15 @@ class RegisterMailActivity : ComponentActivity() {
         }
     }
 
+    /*
+    *******************************************************
+    *       Preview: RegisterMailPreview                  *
+    *******************************************************
+    |  Description:                                       |
+    |  Fonction de prévisualisation pour la section       |
+    |  d'inscription par email.                           |
+    *******************************************************
+    */
     @Preview(showBackground = true)
     @Composable
     private fun MailPreview() {

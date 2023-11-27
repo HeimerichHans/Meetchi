@@ -35,6 +35,16 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 
+/*
+*******************************************************
+*             Activity: HomeActivity                  *
+*******************************************************
+|  Description:                                       |
+|  Activité principale pour l'écran d'accueil de      |
+|  l'application. Initialise la connexion à Firestore |
+|  pour récupérer les informations de l'utilisateur.  |
+*******************************************************
+*/
 class HomeActivity : ComponentActivity() {
     @SuppressLint("UnrememberedMutableState")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +68,18 @@ class HomeActivity : ComponentActivity() {
     }
 }
 
+/*
+*******************************************************
+*         Fonction Composable: Home                   *
+*******************************************************
+|  Description:                                       |
+|  Compose l'écran d'accueil de l'application,        |
+|  utilisant la bibliothèque de navigation            |
+|  pour gérer la navigation entre les différentes     |
+|  sections. Affiche également la barre de navigation |
+|  inférieure avec les icônes des sections.           |
+*******************************************************
+*/
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun Home(userDB : MutableState<User> , modifier: Modifier = Modifier) {
@@ -86,16 +108,10 @@ fun Home(userDB : MutableState<User> , modifier: Modifier = Modifier) {
                         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                         onClick = {
                             navController.navigate(screen.route) {
-                                // Pop up to the start destination of the graph to
-                                // avoid building up a large stack of destinations
-                                // on the back stack as users select items
                                 popUpTo(navController.graph.findStartDestination().id) {
                                     saveState = true
                                 }
-                                // Avoid multiple copies of the same destination when
-                                // reselecting the same item
                                 launchSingleTop = true
-                                // Restore state when reselecting a previously selected item
                                 restoreState = true
                             }
                         }
@@ -106,15 +122,15 @@ fun Home(userDB : MutableState<User> , modifier: Modifier = Modifier) {
     ) { innerPadding ->
         NavHost(navController, startDestination = ScreenHome.Like.route, Modifier.padding(innerPadding)) {
             composable(ScreenHome.Like.route) {
-                // Content for the Like screen
+                // Contenu pour l'écran "Swipe"
                 SwipeScreen()
             }
             composable(ScreenHome.Chat.route) {
-                // Content for the Chat screen
+                // Contenu pour l'écran "Chat"
                 ChatScreen()
             }
             composable(ScreenHome.Profile.route) {
-                // Content for the Profile screen
+                // Contenu pour l'écran "Profile"
                 ProfileScreen(userDB)
             }
         }

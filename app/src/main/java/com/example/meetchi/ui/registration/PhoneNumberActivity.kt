@@ -7,6 +7,14 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.meetchi.ui.theme.MeetchiTheme
 
+/*
+*******************************************************
+*           Fragment: ScreenPhoneNumber               *
+*******************************************************
+|  Description:                                       |
+|  En cours de conception                             |
+*******************************************************
+*/
 @Composable
 fun ScreenPhoneNumber(navController: NavController, modifier: Modifier = Modifier) {
 

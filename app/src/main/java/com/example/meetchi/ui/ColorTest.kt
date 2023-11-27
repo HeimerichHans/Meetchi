@@ -17,6 +17,15 @@ import com.example.meetchi.ui.theme.AppTheme
 import com.example.meetchi.ui.theme.MeetchiTheme
 import androidx.compose.ui.platform.LocalContext
 
+/*
+*******************************************************
+*               Activity: ColorTest                   *
+*******************************************************
+|  Description:                                       |
+|  Activité  pour tester les thèmes de                |
+|  couleurs.                                          |
+*******************************************************
+*/
 class ColorTest : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +44,16 @@ class ColorTest : ComponentActivity() {
     }
 }
 
+/*
+*******************************************************
+*       Fonction Composable: ColorTest                *
+*******************************************************
+|  Description:                                       |
+|  Compose l'écran de test des couleurs et permet     |
+|  à l'utilisateur de choisir entre les thèmes        |
+|  "dark", "light", et "standard".                    |
+*******************************************************
+*/
 @Composable
 fun ColorTest(name: String, modifier: Modifier = Modifier, context: Context) {
     val sharedPreferences = context.getApplicationContext().getSharedPreferences("Parameter", Context.MODE_PRIVATE)
@@ -59,6 +78,16 @@ fun ColorTest(name: String, modifier: Modifier = Modifier, context: Context) {
     }
 }
 
+/*
+*******************************************************
+*           Preview: ColorTestPreview                 *
+*******************************************************
+|  Description:                                       |
+|  Compose la prévisualisation de l'écran de test des |
+|  couleurs en fonction du thème enregistré dans les  |
+|  préférences partagées.                             |
+*******************************************************
+*/
 @Preview(showBackground = true)
 @Composable
 fun ColorTestPreview() {

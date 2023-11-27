@@ -12,6 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.meetchi.ui.theme.MeetchiTheme
 
+/*
+*******************************************************
+*               Fragment: ChatActivity                *
+*******************************************************
+|  Description:                                       |
+|  En cours de conception                             |
+*******************************************************
+*/
 class ChatActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

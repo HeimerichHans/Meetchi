@@ -21,6 +21,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+/*
+*******************************************************
+*                Activity: MainActivity               *
+*******************************************************
+|  Description:                                       |
+|  Activité principale de l'application. Gère le      |
+|  processus de lancement, vérifie si l'utilisateur   |
+|  est connecté et navigue vers l'écran approprié en  |
+|  conséquence. Utilise également une animation du    |
+|  logo au démarrage.                                 |
+*******************************************************
+*/
 class MainActivity : ComponentActivity() {
 
     companion object{
@@ -36,25 +48,27 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    // Affiche une animation de logo au démarrage
                     AnimatedLogo()
-
                     LaunchedEffect(key1 = true) {
                         delay(2000)
 
-                        // Execute the code after the delay
+                        // Exécute le code après le délai
                         CoroutineScope(Dispatchers.Main).launch {
 
                             if (user != null) {
+                                // Navigue vers l'écran d'activité home si déjà connecté
                                 Log.d("UserStatus", "Connected")
                                 val intent = Intent(this@MainActivity, AccountCheckerReadyActivity::class.java)
                                 startActivity(intent, AnimationCancel.CancelAnimation(this@MainActivity))
                             } else {
+                                // Navigue vers l'écran d'authentification
                                 Log.d("UserStatus", "Not Connected")
                                 val intent = Intent(this@MainActivity, AuthActivity::class.java)
                                 startActivity(intent, AnimationCancel.CancelAnimation(this@MainActivity))
                             }
 
-                            // Finish the current activity
+                            // Termine l'activité actuelle
                             finish()
                         }
                     }

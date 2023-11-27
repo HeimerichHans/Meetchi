@@ -35,6 +35,15 @@ import com.example.meetchi.R
 import com.example.meetchi.ui.theme.MeetchiTheme
 import com.example.meetchi.navigation.ScreenRegister
 
+/*
+*******************************************************
+*               Fragment: ScreenGender                *
+*******************************************************
+|  Description:                                       |
+|  Compose l'écran de choix du genre lors de          |
+|  l'inscription.                                     |
+*******************************************************
+*/
 @Composable
 fun ScreenGender(navController: NavController, modifier: Modifier = Modifier) {
     Surface (
@@ -50,6 +59,7 @@ fun ScreenGender(navController: NavController, modifier: Modifier = Modifier) {
                 fontSize = 25.sp,
                 modifier = Modifier.padding(horizontal = 30.dp))
             Spacer(modifier.height(50.dp))
+            // Bouton pour le genre "Garçon"
             Button(onClick =
             {
                 RegistrationActivity.user.genre = "1"
@@ -82,6 +92,7 @@ fun ScreenGender(navController: NavController, modifier: Modifier = Modifier) {
                     .height(2.dp)
                     .fillMaxWidth()
                     .padding(horizontal = 30.dp))
+            // Bouton pour le genre "Fille"
             Button(onClick =
             {
                 RegistrationActivity.user.genre = "2"
@@ -114,6 +125,7 @@ fun ScreenGender(navController: NavController, modifier: Modifier = Modifier) {
                     .height(2.dp)
                     .fillMaxWidth()
                     .padding(horizontal = 30.dp))
+            // Bouton pour le genre "Autre"
             Button(onClick =
             {
                 RegistrationActivity.user.genre = "3"
@@ -145,6 +157,15 @@ fun ScreenGender(navController: NavController, modifier: Modifier = Modifier) {
     }
 }
 
+/*
+*******************************************************
+*               Preview: GenderPreview                *
+*******************************************************
+|  Description:                                       |
+|  Fonction de prévisualisation pour l'écran de       |
+|  choix du genre lors de l'inscription.              |
+*******************************************************
+*/
 @Preview(showBackground = true)
 @Composable
 private fun GenderPreview() {

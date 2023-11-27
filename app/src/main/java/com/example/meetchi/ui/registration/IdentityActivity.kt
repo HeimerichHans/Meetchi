@@ -40,6 +40,15 @@ import com.example.meetchi.ui.theme.MeetchiTheme
 import com.example.meetchi.navigation.ScreenRegister
 import java.text.SimpleDateFormat
 
+/*
+*******************************************************
+*              Fragment: ScreenIdentity               *
+*******************************************************
+|  Description:                                       |
+|  Compose l'écran de saisie des informations         |
+|  d'identité de l'utilisateur lors de l'inscription. |
+*******************************************************
+*/
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenIdentity(navController: NavController, modifier: Modifier = Modifier) {
@@ -51,9 +60,11 @@ fun ScreenIdentity(navController: NavController, modifier: Modifier = Modifier) 
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center)
         {
+            // Variables pour stocker les saisies de l'utilisateur
             var surname by remember { mutableStateOf("") }
             var name by remember { mutableStateOf("") }
             var dateBirth by remember { mutableStateOf("") }
+            // Champ de texte pour le prénom
             TextField(
                 value = surname,
                 onValueChange = { surname = it },
@@ -64,13 +75,13 @@ fun ScreenIdentity(navController: NavController, modifier: Modifier = Modifier) 
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = {
-                        // Move focus to the next text field or perform any action
                     }
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 10.dp)
             )
+            // Champ de texte pour le nom de famille
             TextField(
                 value = name,
                 onValueChange = { name = it },
@@ -81,20 +92,19 @@ fun ScreenIdentity(navController: NavController, modifier: Modifier = Modifier) 
                 ),
                 keyboardActions = KeyboardActions(
                     onDone = {
-                        // Handle login action
                     }
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 10.dp)
             )
+            // Champ de texte pour la date de naissance
             TextField(
                 value = dateBirth,
                 onValueChange = { newInput ->
                     val (formattedValue, newPosition) = formatDateString(newInput, dateBirth)
                     dateBirth = formattedValue
-                    // Mettez à jour la position du curseur
-                    // Cela peut ne pas être parfait, vous devrez peut-être ajuster en fonction de votre logique
+                    // Mettez à jour la position du curseur A CORRIGER
                 },
                 label = { Text(stringResource(R.string.dateBirth)) },
                 keyboardOptions = KeyboardOptions(
@@ -103,13 +113,13 @@ fun ScreenIdentity(navController: NavController, modifier: Modifier = Modifier) 
                 ),
                 keyboardActions = KeyboardActions(
                     onDone = {
-                        // Action lorsque l'utilisateur appuie sur "Done" sur le clavier
                     }
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 10.dp)
             )
+            // Bouton pour passer à l'écran suivant (le genre)
             Row(
                 horizontalArrangement = Arrangement.End,
                 modifier = Modifier.fillMaxWidth()
@@ -117,6 +127,7 @@ fun ScreenIdentity(navController: NavController, modifier: Modifier = Modifier) 
             ){
                 Button(
                     onClick = {
+                        // Vérifie la validité des entrées et passe à l'écran suivant
                         val dateFormat = SimpleDateFormat("dd/MM/yyyy")
                         if(name != null && surname != null && isValidDateFormat(dateBirth)){
                             RegistrationActivity.user.nom = name
@@ -141,6 +152,15 @@ fun ScreenIdentity(navController: NavController, modifier: Modifier = Modifier) 
     }
 }
 
+/*
+*******************************************************
+*      Fonction: isValidDateFormat                    *
+*******************************************************
+|  Description:                                       |
+|  Vérifie si la chaîne de caractères représentant    |
+|  une date est au format valide (dd/MM/yyyy).        |
+*******************************************************
+*/
 private fun isValidDateFormat(dateString: String): Boolean {
     return try {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy")
@@ -152,6 +172,17 @@ private fun isValidDateFormat(dateString: String): Boolean {
     }
 }
 
+/*
+*******************************************************
+*      Fonction: formatDateString                     *
+*******************************************************
+|  Description:                                       |
+|  Formate la chaîne de caractères représentant une   |
+|  date au fur et à mesure de la saisie, en ajoutant  |
+|  automatiquement des barres obliques pour suivre le |
+|  format (dd/MM/yyyy).                               |
+*******************************************************
+*/
 private fun formatDateString(input: String, currentValue: String): Pair<String, Int> {
     var formattedString = StringBuilder()
     var digitCount = 0
@@ -175,6 +206,16 @@ private fun formatDateString(input: String, currentValue: String): Pair<String, 
     return formattedString.toString() to newPosition
 }
 
+/*
+*******************************************************
+*           Preview: IdentityPreview                  *
+*******************************************************
+|  Description:                                       |
+|  Fonction de prévisualisation pour l'écran de       |
+|  saisie des informations d'identité lors de         |
+|  l'inscription.                                     |
+*******************************************************
+*/
 @Preview(showBackground = true)
 @Composable
 private fun IdentityPreview() {

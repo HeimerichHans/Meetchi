@@ -18,6 +18,17 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 
+/*
+*********************************************************************************
+*              Activity: AccountCheckerReadyActivity                            *
+*********************************************************************************
+|  Description:                                                                 |
+|  Cette activité vérifie si le compte de l'utilisateur est prêt. Elle          |
+|  récupère les informations utilisateur à partir de Firebase Firestore et      |
+|  redirige l'utilisateur vers l'activité d'accueil si le compte est prêt,      |
+|  sinon elle le redirige vers l'activité d'enregistrement.                     |
+*********************************************************************************
+*/
 class AccountCheckerReadyActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,33 +38,42 @@ class AccountCheckerReadyActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    // Obtenir une référence à la base de données Firestore
                     val db = Firebase.firestore
+                    // Obtenir une référence au document utilisateur dans Firestore
                     val userDB = db.collection("User").document(MainActivity.auth.uid.toString())
+                    // Récupérer les données du document utilisateur
                     userDB.get().addOnSuccessListener { document ->
                         if (document != null) {
+                            // Convertir le document Firestore en objet User
                             val User = document.toObject<User>()
                             if (User != null) {
                                 if(User.account_ready == true){
+                                    // Rediriger vers l'activité d'accueil si le compte est prêt
                                     Log.d("Firestore:Log", "DocumentSnapshot data: ${User.account_ready} ${User.nom} ${User.prenom}")
                                     val intent = Intent(this@AccountCheckerReadyActivity, HomeActivity::class.java)
                                     startActivity(intent, AnimationCancel.CancelAnimation(this@AccountCheckerReadyActivity))
                                 }
                                 else{
+                                    // Rediriger vers l'activité d'enregistrement si le compte n'est pas prêt
                                     val intent = Intent(this@AccountCheckerReadyActivity, RegistrationActivity::class.java)
                                     startActivity(intent, AnimationCancel.CancelAnimation(this@AccountCheckerReadyActivity))
                                 }
                             }
                             else{
+                                // Rediriger vers l'activité d'enregistrement si le compte n'est pas prêt
                                 Log.d("Firestore:Log", "User Failed")
                                 val intent = Intent(this@AccountCheckerReadyActivity, RegistrationActivity::class.java)
                                 startActivity(intent, AnimationCancel.CancelAnimation(this@AccountCheckerReadyActivity))
                             }
                         } else {
+                            // Rediriger vers l'activité d'enregistrement si le compte n'est pas prêt
                             Log.d("Firestore:Log", "Document Failed")
                             val intent = Intent(this@AccountCheckerReadyActivity, RegistrationActivity::class.java)
                             startActivity(intent, AnimationCancel.CancelAnimation(this@AccountCheckerReadyActivity))
                         }
                     }.addOnFailureListener { exception ->
+                        // Gérer les échecs lors de la récupération des données Firestore
                         Log.d("Firestore:Log", "get failed with ", exception)
                     }
                 }
