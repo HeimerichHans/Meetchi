@@ -49,6 +49,15 @@ import com.google.firebase.firestore.firestore
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
+/*
+*******************************************************
+*            Fragment: ScreenDescription              *
+*******************************************************
+|  Description:                                       |
+|  Compose l'écran de description du profil           |
+|  lors de l'inscription.                             |
+*******************************************************
+*/
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenDescription(navController: NavController, modifier: Modifier = Modifier) {
@@ -60,9 +69,11 @@ fun ScreenDescription(navController: NavController, modifier: Modifier = Modifie
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center)
         {
+            // États pour stocker le pseudonyme et la description
             var description by remember { mutableStateOf("") }
             var pseudonyme by remember { mutableStateOf("") }
             val context = LocalContext.current
+            // Champ de texte pour le pseudonyme
             TextField(
                 value = pseudonyme,
                 onValueChange = { pseudonyme = it },
@@ -73,16 +84,17 @@ fun ScreenDescription(navController: NavController, modifier: Modifier = Modifie
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = {
-                        // Move focus to the next text field or perform any action
                     }
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 10.dp)
             )
+            // Champ de texte pour la description
             TextField(
                 value = description,
                 onValueChange = {
+                    // Limitez la longueur de la description à 255 caractères
                     if( it.length < 255 ){
                         description = it
                     }
@@ -94,13 +106,13 @@ fun ScreenDescription(navController: NavController, modifier: Modifier = Modifie
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = {
-                        // Move focus to the next text field or perform any action
                     }
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 10.dp)
             )
+            // Bouton pour soumettre le formulaire
             Row(
                 horizontalArrangement = Arrangement.End,
                 modifier = Modifier.fillMaxWidth()
@@ -108,6 +120,7 @@ fun ScreenDescription(navController: NavController, modifier: Modifier = Modifie
             ){
                 Button(
                     onClick = {
+                        // Enregistrez les informations dans Firestore
                         val dateFormat = SimpleDateFormat("dd/MM/yyyy")
                         if(description != null && pseudonyme != null){
                             val db = Firebase.firestore
@@ -134,6 +147,7 @@ fun ScreenDescription(navController: NavController, modifier: Modifier = Modifie
                         .clip(CircleShape),
                     contentPadding = PaddingValues(3.dp),
                 ){
+                    // Icône flèche vers l'avant
                     Icon(imageVector = Icons.Rounded.ArrowForward,
                         contentDescription = null,
                         modifier = Modifier
@@ -145,6 +159,15 @@ fun ScreenDescription(navController: NavController, modifier: Modifier = Modifie
     }
 }
 
+/*
+*******************************************************
+*           Preview: PhoneNumberPreview               *
+*******************************************************
+|  Description:                                       |
+|  Fonction de prévisualisation pour l'écran de       |
+|  description du profil lors de l'inscription.       |
+*******************************************************
+*/
 @Preview(showBackground = true)
 @Composable
 private fun PhoneNumberPreview() {

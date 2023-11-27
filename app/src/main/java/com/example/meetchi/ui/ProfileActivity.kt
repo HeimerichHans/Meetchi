@@ -42,6 +42,16 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
 import java.util.Calendar
 
+/*
+********************************************************
+*               Fragment: ProfileScreen                *
+********************************************************
+|  Description:                                        |
+|  Compose l'écran du profil utilisateur. Affiche      |
+|  les informations du profil et permet à l'utilisateur|
+|  de modifier les paramètres et de se déconnecter.    |
+********************************************************
+*/
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun ProfileScreen(userDB: MutableState<User>) {
@@ -54,15 +64,20 @@ fun ProfileScreen(userDB: MutableState<User>) {
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Spacer(modifier = Modifier.height(50.dp))
+            // Section de présentation du profil
             ProfilPresentation(userDB)
             Spacer(modifier = Modifier.height(30.dp))
+            // Section des paramètres du profil
             ProfilParameter(userDB)
             Spacer(modifier = Modifier.height(40.dp))
+            // Bouton pour enregistrer les modifications du profil
             Button(
                 onClick = {
+                    // Vérification des champs remplis avant la sauvegarde
                     if(userDB.value.pseudonyme != null && userDB.value.nom != null && userDB.value.prenom != null && userDB.value.description != null){
                         userDB.value.dateUpdate = Calendar.getInstance().time
                         val db = Firebase.firestore
+                        // Mise à jour des données de l'utilisateur dans Firestore
                         db.collection("User")
                             .document(MainActivity.auth.uid.toString())
                             .set(userDB.value, SetOptions.merge())
@@ -82,6 +97,7 @@ fun ProfileScreen(userDB: MutableState<User>) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ){
+            // Bouton pour se déconnecter
             Button(
                 onClick = {
                     // Handle login action
@@ -99,6 +115,15 @@ fun ProfileScreen(userDB: MutableState<User>) {
     }
 }
 
+/*
+*******************************************************
+*      Fonction Composable: ProfilPresentation        *
+*******************************************************
+|  Description:                                       |
+|  Compose la section de présentation du profil       |
+|  affichant le pseudonyme et l'âge de l'utilisateur. |
+*******************************************************
+*/
 @Composable
 fun ProfilPresentation(toto : MutableState<User>){
     val calendar = Calendar.getInstance()
@@ -107,6 +132,7 @@ fun ProfilPresentation(toto : MutableState<User>){
         calendar.time = toto.value.dateNaissance!!
         age = Calendar.getInstance().get(Calendar.YEAR) - calendar.get(Calendar.YEAR)
     }
+    // Affichage du pseudonyme et de l'âge
     Text(
         text = "${toto.value.pseudonyme}, $age",
         fontWeight = FontWeight.Bold,
@@ -115,10 +141,21 @@ fun ProfilPresentation(toto : MutableState<User>){
     )
 }
 
+/*
+*******************************************************
+*   Fonction Composable: ProfilParameter              *
+*******************************************************
+|  Description:                                       |
+|  Compose la section des paramètres du profil,       |
+|  permettant à l'utilisateur de modifier ses         |
+|  informations personnelles.                         |
+*******************************************************
+*/
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfilParameter(userDB : MutableState<User>){
     userDB.value.pseudonyme?.let {
+        // Champ pour modifier le pseudonyme
         TextField(
             value = it,
             onValueChange = { userDB.value = userDB.value.copy(pseudonyme = it) },
@@ -138,6 +175,7 @@ fun ProfilParameter(userDB : MutableState<User>){
         )
     }
     userDB.value.nom?.let {
+        // Champ pour modifier le nom
         TextField(
             value = it,
             onValueChange = { userDB.value = userDB.value.copy(nom = it) },
@@ -157,6 +195,7 @@ fun ProfilParameter(userDB : MutableState<User>){
         )
     }
     userDB.value.prenom?.let {
+        // Champ pour modifier le prenom
         TextField(
             value = it,
             onValueChange = { userDB.value = userDB.value.copy(prenom = it) },
@@ -176,6 +215,7 @@ fun ProfilParameter(userDB : MutableState<User>){
         )
     }
     userDB.value.description?.let {
+        // Champ pour modifier la description
         TextField(
             value = it,
             onValueChange = { userDB.value = userDB.value.copy(description = it) },
@@ -196,10 +236,21 @@ fun ProfilParameter(userDB : MutableState<User>){
     }
 }
 
+/*
+*******************************************************
+*               Preview: ProfilePreview               *
+*******************************************************
+|  Description:                                       |
+|  Compose la prévisualisation de l'écran de profil,  |
+|  avec des données d'utilisateur factices pour       |
+|  l'aperçu.                                          |
+*******************************************************
+*/
 @SuppressLint("UnrememberedMutableState")
 @Preview(showBackground = true)
 @Composable
 fun ProfilePreview() {
+    // Initialisation d'un utilisateur factice pour l'aperçu
     var userDB = User()
     userDB.nom = ""
     userDB.dateNaissance = Calendar.getInstance().time

@@ -35,6 +35,16 @@ import com.example.meetchi.R
 import com.example.meetchi.ui.login.AuthActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
 
+/*
+***************************************************************
+*            Classe: AppUtilOnLoginActivity                   *
+***************************************************************
+|  Description:                                               |
+|  Cette classe définit une activité utilitaire qui peut être |
+|  utilisée dans le cadre de l'interface utilisateur lors de  |
+|  l'authentification.                                        |
+***************************************************************
+*/
 class AppUtilOnLoginActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +56,15 @@ class AppUtilOnLoginActivity : ComponentActivity() {
     }
 }
 
+/*
+***************************************************************
+*             Fonction Composable: IconAuth                   *
+***************************************************************
+|  Description:                                               |
+|  Cette fonction composable affiche l'icône de l'application |
+|  avec le nom de l'application en dessous.                   |
+***************************************************************
+*/
 @OptIn(ExperimentalTextApi::class)
 @Composable
 fun IconAuth()
@@ -72,6 +91,16 @@ fun IconAuth()
     }
 }
 
+/*
+**************************************************************
+*            Fonction Composable: BackArrowAuth              *
+**************************************************************
+|  Description:                                              |
+|  Cette fonction composable affiche une flèche de retour et |
+|  permet de définir une action à exécuter lorsqu'elle est   |
+|  cliquée.                                                  |
+**************************************************************
+*/
 @Composable
 public fun BackArrowAuth(context: Context)
 {
@@ -84,11 +113,29 @@ public fun BackArrowAuth(context: Context)
     }
 }
 
+/*
+***************************************************************
+*                  Fonction: onIconClick                      *
+***************************************************************
+|  Description:                                               |
+|  Cette fonction définit l'action à exécuter lorsqu'on clique|
+|  sur l'icône de retour.                                     |
+***************************************************************
+*/
 fun onIconClick(context: Context) {
     val intent = Intent(context, AuthActivity::class.java)
     context.startActivity(intent, AnimationCancel.CancelAnimation(context))
 }
 
+/*
+***************************************************************
+*                Preview: IconAuthPreview                     *
+***************************************************************
+|  Description:                                               |
+|  Fonction de prévisualisation pour l'affichage de           |
+|  l'icône de l'application.                                  |
+***************************************************************
+*/
 @Preview(showBackground = true)
 @Composable
 private fun IconAuthPreview() {
@@ -97,6 +144,15 @@ private fun IconAuthPreview() {
     }
 }
 
+/*
+***************************************************************
+*             Preview: BackArrowAuthPreview                   *
+***************************************************************
+|  Description:                                               |
+|  Fonction de prévisualisation pour l'affichage de la        |
+|  flèche de retour.                                          |
+***************************************************************
+*/
 @Preview(showBackground = true)
 @Composable
 private fun BackArrowAuthPreview() {

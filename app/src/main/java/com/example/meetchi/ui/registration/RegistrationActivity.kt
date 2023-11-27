@@ -17,6 +17,16 @@ import com.example.meetchi.model.User
 import com.example.meetchi.ui.theme.MeetchiTheme
 import com.example.meetchi.navigation.ScreenRegister
 
+/*
+*******************************************************
+*         Activity: RegistrationActivity              *
+*******************************************************
+|  Description:                                       |
+|  Activité principale pour le processus d'inscription|
+|  d'un nouvel utilisateur. Initialise l'utilisateur  |
+|  et définit le thème global de l'application.       |
+*******************************************************
+*/
 class RegistrationActivity : ComponentActivity() {
 
     companion object{
@@ -41,6 +51,17 @@ class RegistrationActivity : ComponentActivity() {
     }
 }
 
+/*
+******************************************************
+*      Fonction: RegisterNavigator                   *
+******************************************************
+|  Description:                                      |
+|  Compose le composant de navigation pour guider    |
+|  l'utilisateur à travers les étapes du processus   |
+|  d'inscription. Utilise le NavController pour      |
+|  naviguer entre les écrans.                        |
+******************************************************
+*/
 @Composable
 fun RegisterNavigator(modifier: Modifier = Modifier) {
     val navController = rememberNavController()

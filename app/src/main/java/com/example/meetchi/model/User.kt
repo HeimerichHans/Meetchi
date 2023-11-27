@@ -2,6 +2,15 @@ package com.example.meetchi.model
 
 import java.util.Date
 
+/*
+*******************************************************
+*                   Model: User                       *
+*******************************************************
+|  Description:                                       |
+|  Ce model représente notre Base Utilisateur         |
+|  Firebase.                                          |
+*******************************************************
+*/
 data class User(
     var account_ready: Boolean? = false,
     var dateCreation: Date? = null,

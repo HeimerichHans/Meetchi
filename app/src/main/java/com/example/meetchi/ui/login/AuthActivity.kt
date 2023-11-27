@@ -65,6 +65,15 @@ class AuthActivity : ComponentActivity() {
         }
     }
 
+    /*
+    *******************************************************
+    *        Fonction: registerForActivityResult          *
+    *******************************************************
+    |  Description:                                       |
+    |  Enregistre un résultat pour le lancement           |
+    |  de l'activité                                      |
+    *******************************************************
+    */
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
@@ -72,6 +81,15 @@ class AuthActivity : ComponentActivity() {
         }
     }
 
+    /*
+    *******************************************************
+    *            Fonction: handleSignInResult             *
+    *******************************************************
+    |  Description:                                       |
+    |  Fonction pour traiter le résultat de la connexion  |
+    |  avec Google                                        |
+    *******************************************************
+    */
     private fun handleSignInResult(data: Intent?) {
         val task = GoogleSignIn.getSignedInAccountFromIntent(data)
         try {
@@ -87,22 +105,39 @@ class AuthActivity : ComponentActivity() {
         }
     }
 
+    /*
+    *******************************************************
+    *            Fonction: signInWithCredential           *
+    *******************************************************
+    |  Description:                                       |
+    |  Fonction pour effectuer la connexion avec les      |
+    |  informations d'identification                      |
+    *******************************************************
+    */
     private fun signInWithCredential(credential: AuthCredential) {
         MainActivity.auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
+                    // Connexion réussie, mettre à jour l'interface
                     Log.d("UserStatus", "Connection Success")
                     startActivity(Intent(this, AccountCheckerReadyActivity::class.java), AnimationCancel.CancelAnimation(this@AuthActivity))
                     finish()
                 } else {
-                    // If sign in fails, display a message to the user.
+                    // Si la connexion échoue, afficher un message Log
                     Log.w("UserStatus", "signInWithCredential:failure", task.exception)
-                    // Handle the error
                 }
             }
     }
 
+    /*
+    *******************************************************
+    *              Fonction Composable: Auth              *
+    *******************************************************
+    |  Description:                                       |
+    |  Fonction principale pour l'interface               |
+    |  d'authentification                                 |
+    *******************************************************
+    */
     @Composable
     fun Auth(modifier: Modifier = Modifier) {
         Surface(
@@ -130,6 +165,14 @@ class AuthActivity : ComponentActivity() {
         }
     }
 
+    /*
+    *******************************************************
+    *          Fonction Composable: ButtonAuth            *
+    *******************************************************
+    |  Description:                                       |
+    |  Fonction pour un bouton d'authentification         |
+    *******************************************************
+    */
     @Composable
     private fun ButtonAuth(type: enumUtil.LoginType , Image: Painter)
     {
@@ -199,8 +242,15 @@ class AuthActivity : ComponentActivity() {
         }
     }
 
-
-
+    /*
+    *******************************************************
+    *         Fonction Composable: ListButtonAuth         *
+    *******************************************************
+    |  Description:                                       |
+    |  Fonction pour la liste des boutons                 |
+    |  d'authentification                                 |
+    *******************************************************
+    */
     @Composable
     private fun ListButtonAuth(){
         Column {
@@ -220,6 +270,14 @@ class AuthActivity : ComponentActivity() {
         }
     }
 
+    /*
+    *******************************************************
+    *           Preview: ListButtonAuthPreview            *
+    *******************************************************
+    |  Description:                                       |
+    |  Aperçu de la liste des boutons d'authentification  |
+    *******************************************************
+    */
     @Preview(showBackground = true)
     @Composable
     fun ListButtonAuthPreview() {
@@ -228,6 +286,14 @@ class AuthActivity : ComponentActivity() {
         }
     }
 
+    /*
+    *******************************************************
+    *                Preview: AuthPreview                 *
+    *******************************************************
+    |  Description:                                       |
+    |  Aperçu de l'interface d'authentification           |
+    *******************************************************
+    */
     @Preview(showBackground = true)
     @Composable
     fun AuthPreview() {

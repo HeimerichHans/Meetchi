@@ -46,6 +46,14 @@ import com.example.meetchi.util.AnimationCancel
 import com.example.meetchi.util.BackArrowAuth
 import com.example.meetchi.util.IconAuth
 
+/*
+*******************************************************
+*              Activity: MailActivity                 *
+*******************************************************
+|  Description:                                       |
+|  Activité gérant l'authentification par email.      |
+*******************************************************
+*/
 class MailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +64,14 @@ class MailActivity : ComponentActivity() {
         }
     }
 
+    /*
+    *******************************************************
+    *            Fonction Composable: PageMail            *
+    *******************************************************
+    |  Description:                                       |
+    |  Compose de la page d'authentification par email.   |
+    *******************************************************
+    */
     @Composable
     private fun PageMail()
     {
@@ -78,9 +94,18 @@ class MailActivity : ComponentActivity() {
         }
     }
 
+    /*
+    *******************************************************
+    *             Fonction Composable: Mail               *
+    *******************************************************
+    |  Description:                                       |
+    |  Compose la section de l'authentification par email.|
+    *******************************************************
+    */
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun Mail(modifier: Modifier = Modifier) {
+        // Les états pour stocker le nom d'utilisateur, le mot de passe et l'état d'activation du bouton de connexion
         var username by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         val isLoginEnabled by remember {
@@ -93,6 +118,7 @@ class MailActivity : ComponentActivity() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center)
         {
+            // Champ de texte pour le nom d'utilisateur
             TextField(
                 value = username,
                 onValueChange = { username = it },
@@ -103,13 +129,13 @@ class MailActivity : ComponentActivity() {
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = {
-                        // Move focus to the next text field or perform any action
                     }
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 5.dp)
             )
+            // Champ de texte pour le mot de passe
             TextField(
                 value = password,
                 onValueChange = { password = it },
@@ -121,7 +147,6 @@ class MailActivity : ComponentActivity() {
                 ),
                 keyboardActions = KeyboardActions(
                     onDone = {
-                        // Handle login action
                         if (isLoginEnabled) {
                             performLogin(username, password)
                         }
@@ -132,9 +157,9 @@ class MailActivity : ComponentActivity() {
                     .padding(horizontal = 20.dp, vertical = 5.dp)
             )
             Spacer(modifier.height(60.dp))
+            // Bouton de connexion
             Button(
                 onClick = {
-                    // Handle login action
                     if (isLoginEnabled) {
                         performLogin(username, password)
                     }
@@ -146,6 +171,14 @@ class MailActivity : ComponentActivity() {
         }
     }
 
+    /*
+    *******************************************************
+    *        Fonction Composable: InscriptionMail         *
+    *******************************************************
+    |  Description:                                       |
+    |  Compose la section d'inscription par email.        |
+    *******************************************************
+    */
     @Composable
     fun InscriptionMail()
     {
@@ -160,6 +193,7 @@ class MailActivity : ComponentActivity() {
                 modifier = Modifier
                     .height(30.dp)
                     .fillMaxSize())
+            // Bouton pour accéder à l'inscription
             TextButton(onClick = {
                 intent = Intent(context, RegisterMailActivity::class.java)
                 startActivity(intent, AnimationCancel.CancelAnimation(this@MailActivity))
@@ -171,6 +205,15 @@ class MailActivity : ComponentActivity() {
         }
     }
 
+    /*
+    *******************************************************
+    *         Fonction: performLogin                      *
+    *******************************************************
+    |  Description:                                       |
+    |  Effectue la connexion avec les identifiants        |
+    |  fournis.                                           |
+    *******************************************************
+    */
     fun performLogin(username: String, password: String) {
         MainActivity.auth.signInWithEmailAndPassword(username, password)
             .addOnCompleteListener(this) { task ->
@@ -184,27 +227,19 @@ class MailActivity : ComponentActivity() {
             }
     }
 
+    /*
+    *******************************************************
+    *               Preview: PageMailPreview              *
+    *******************************************************
+    |  Description:                                       |
+    |  Aperçu de l'interface de connexion par email       |
+    *******************************************************
+    */
     @Preview(showBackground = true)
     @Composable
     private fun PageMailPreview() {
         MeetchiTheme{
             PageMail()
-        }
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    private fun MailPreview() {
-        MeetchiTheme(){
-            Mail()
-        }
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun InscriptionMailPreview() {
-        MeetchiTheme {
-            InscriptionMail()
         }
     }
 }
