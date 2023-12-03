@@ -3,6 +3,7 @@ package com.example.meetchi.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -30,13 +31,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -87,7 +93,7 @@ class RegisterMailActivity : ComponentActivity() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement  = Arrangement.Top
             ){
-                Spacer(modifier = Modifier.height(110.dp))
+                Spacer(modifier = Modifier.height(60.dp))
                 IconAuth()
                 Spacer(modifier = Modifier.height(40.dp))
                 RegisterMail()
@@ -103,9 +109,12 @@ class RegisterMailActivity : ComponentActivity() {
     |  Compose la section d'inscription par email.        |
     *******************************************************
     */
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
     @Composable
     private fun RegisterMail(modifier: Modifier = Modifier) {
+        val focusRequesterPswd = remember { FocusRequester() }
+        val focusRequesterRPswd = remember { FocusRequester() }
+        val inputService = LocalSoftwareKeyboardController.current
         // Les états pour stocker le nom d'utilisateur, le mot de passe, la confirmation de mot de passe,
         // l'acceptation des conditions d'utilisation, et l'état d'activation du bouton d'inscription.
         var username by remember { mutableStateOf("") }
@@ -126,6 +135,17 @@ class RegisterMailActivity : ComponentActivity() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center)
         {
+            Row(
+                horizontalArrangement = Arrangement.Start)
+            {
+                Text(text = stringResource(R.string.regregister),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    modifier = Modifier
+                        .height(50.dp)
+                        .fillMaxSize()
+                        .padding(start = 20.dp, bottom = 20.dp))
+            }
             // Champ de texte pour le nom d'utilisateur
             TextField(
                 value = username,
@@ -137,6 +157,7 @@ class RegisterMailActivity : ComponentActivity() {
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = {
+                        focusRequesterPswd.requestFocus()
                     }
                 ),
                 modifier = Modifier
@@ -151,19 +172,17 @@ class RegisterMailActivity : ComponentActivity() {
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password,
-                    imeAction = ImeAction.Done
+                    imeAction = ImeAction.Next
                 ),
                 keyboardActions = KeyboardActions(
-                    onDone = {
-                        // Handle login action
-                        if (isLoginEnabled) {
-                            performRegister(username, password)
-                        }
+                    onNext = {
+                        focusRequesterRPswd.requestFocus()
                     }
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 5.dp)
+                    .focusRequester(focusRequesterPswd)
             )
             // Champ de texte pour la confirmation de mot de passe
             TextField(
@@ -181,11 +200,13 @@ class RegisterMailActivity : ComponentActivity() {
                         if (isLoginEnabled) {
                             performRegister(username, password)
                         }
+                        inputService?.hide()
                     }
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 5.dp)
+                    .focusRequester(focusRequesterRPswd)
             )
             // Ligne pour l'acceptation des conditions d'utilisation
             Row(
@@ -242,7 +263,8 @@ class RegisterMailActivity : ComponentActivity() {
                     finish()
                 } else {
                     // Échec de l'inscription, gérer l'erreur
-                    Log.d("UserStatus", "register failed")
+                    Log.d("UserStatus", "register failed: "+task.exception?.message)
+                    Toast.makeText(this,task.exception?.message,Toast.LENGTH_LONG).show()
                 }
             }
     }
@@ -291,7 +313,7 @@ class RegisterMailActivity : ComponentActivity() {
     |  d'inscription par email.                           |
     *******************************************************
     */
-    @Preview(showBackground = true)
+    @Preview(showBackground = true, device = "id:Samsung S9+", showSystemUi = true)
     @Composable
     private fun PageMailPreview() {
         MeetchiTheme{

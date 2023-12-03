@@ -247,7 +247,7 @@ fun ProfilParameter(userDB : MutableState<User>){
 *******************************************************
 */
 @SuppressLint("UnrememberedMutableState")
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "id:Samsung S9+", showSystemUi = true)
 @Composable
 fun ProfilePreview() {
     // Initialisation d'un utilisateur factice pour l'aperçu

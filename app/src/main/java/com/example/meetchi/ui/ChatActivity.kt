@@ -44,7 +44,7 @@ fun ChatScreen() {
     )
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "id:Samsung S9+", showSystemUi = true)
 @Composable
 fun GreetingPreview() {
     MeetchiTheme {

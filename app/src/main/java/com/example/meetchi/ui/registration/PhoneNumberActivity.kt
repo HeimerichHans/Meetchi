@@ -20,7 +20,7 @@ fun ScreenPhoneNumber(navController: NavController, modifier: Modifier = Modifie
 
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "id:Samsung S9+", showSystemUi = true)
 @Composable
 private fun PhoneNumberPreview() {
     val navController = rememberNavController()
