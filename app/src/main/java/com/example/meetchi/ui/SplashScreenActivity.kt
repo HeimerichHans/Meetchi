@@ -97,7 +97,7 @@ fun AnimatedLogo() {
 |  Aperçu de l'animation du logo.                     |
 *******************************************************
 */
-@Preview
+@Preview(showBackground = true, device = "id:Samsung S9+", showSystemUi = true)
 @Composable
 fun AnimatedLogoPreview(){
     MeetchiTheme{

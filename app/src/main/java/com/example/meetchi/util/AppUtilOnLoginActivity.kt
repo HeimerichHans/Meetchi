@@ -124,6 +124,7 @@ public fun BackArrowAuth(context: Context)
 */
 fun onIconClick(context: Context) {
     val intent = Intent(context, AuthActivity::class.java)
+    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
     context.startActivity(intent, AnimationCancel.CancelAnimation(context))
 }
 
@@ -153,7 +154,7 @@ private fun IconAuthPreview() {
 |  flèche de retour.                                          |
 ***************************************************************
 */
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "id:Samsung S9+", showSystemUi = true)
 @Composable
 private fun BackArrowAuthPreview() {
     MeetchiTheme (){

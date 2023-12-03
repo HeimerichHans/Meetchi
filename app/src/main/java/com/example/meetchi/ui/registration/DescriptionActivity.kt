@@ -168,7 +168,7 @@ fun ScreenDescription(navController: NavController, modifier: Modifier = Modifie
 |  description du profil lors de l'inscription.       |
 *******************************************************
 */
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "id:Samsung S9+", showSystemUi = true)
 @Composable
 private fun PhoneNumberPreview() {
     val navController = rememberNavController()

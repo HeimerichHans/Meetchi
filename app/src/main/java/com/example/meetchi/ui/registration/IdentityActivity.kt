@@ -216,7 +216,7 @@ private fun formatDateString(input: String, currentValue: String): Pair<String, 
 |  l'inscription.                                     |
 *******************************************************
 */
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "id:Samsung S9+", showSystemUi = true)
 @Composable
 private fun IdentityPreview() {
     val navController = rememberNavController()

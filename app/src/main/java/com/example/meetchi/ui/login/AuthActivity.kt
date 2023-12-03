@@ -38,6 +38,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.TextButton
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -151,16 +152,50 @@ class AuthActivity : ComponentActivity() {
                 verticalArrangement  = Arrangement.Top
             )
             {
-                Spacer(modifier.height(110.dp))
+                Spacer(modifier.height(60.dp))
                 IconAuth()
-                Spacer(modifier.height(100.dp))
+                Spacer(modifier.height(80.dp))
                 Text(text = stringResource(R.string.ask_how_log),
                     fontWeight = FontWeight.Bold,
                     fontSize = 25.sp,
                     modifier = Modifier.padding(horizontal = 30.dp))
                 Spacer(modifier.height(20.dp))
                 ListButtonAuth()
+                InscriptionMail()
+            }
+        }
+    }
 
+    /*
+    *******************************************************
+    *        Fonction Composable: InscriptionMail         *
+    *******************************************************
+    |  Description:                                       |
+    |  Compose la section d'inscription par email.        |
+    *******************************************************
+    */
+    @Composable
+    fun InscriptionMail()
+    {
+        val context = LocalContext.current
+        Column (modifier = Modifier
+            .padding(30.dp),
+            horizontalAlignment = Alignment.Start)
+        {
+            Text(text = stringResource(R.string.AskMember),
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                modifier = Modifier
+                    .height(30.dp)
+                    .fillMaxSize())
+            // Bouton pour accéder à l'inscription
+            TextButton(onClick = {
+                intent = Intent(context, RegisterMailActivity::class.java)
+                startActivity(intent, AnimationCancel.CancelAnimation(this@AuthActivity))
+                finish()
+            })
+            {
+                Text(stringResource(R.string.register))
             }
         }
     }
@@ -294,7 +329,7 @@ class AuthActivity : ComponentActivity() {
     |  Aperçu de l'interface d'authentification           |
     *******************************************************
     */
-    @Preview(showBackground = true)
+    @Preview(showBackground = true, device = "id:Samsung S9+", showSystemUi = true)
     @Composable
     fun AuthPreview() {
         MeetchiTheme (appTheme = AppTheme.THEME_STANDARD){
