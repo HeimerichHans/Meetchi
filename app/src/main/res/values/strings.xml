@@ -56,4 +56,6 @@
     <string name="title_activity_phone_number">PhoneNumberActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="newCards">Charger à nouveau des profils</string>
+    <string name="title_activity_camerax_activity">CameraXActivty</string>
+    <string name="title_activity_camera_xactivity">CameraXActivity</string>
 </resources>
