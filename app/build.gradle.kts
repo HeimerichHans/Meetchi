@@ -97,6 +97,8 @@ dependencies {
 
     implementation("io.coil-kt:coil-compose:1.4.0")
 
+    //Firebase Storage
+    implementation("com.google.firebase:firebase-storage")
 
 
 }
