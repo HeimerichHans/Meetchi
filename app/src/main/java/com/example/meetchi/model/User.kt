@@ -12,6 +12,7 @@ import java.util.Date
 *******************************************************
 */
 data class User(
+    var uid: String? = null,
     var account_ready: Boolean? = false,
     var dateCreation: Date? = null,
     var dateNaissance: Date? = null,

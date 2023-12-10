@@ -52,6 +52,7 @@ android {
 
 dependencies {
 
+    implementation("org.jetbrains.kotlin:kotlin-reflect:latest.release")
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.facebook.android:facebook-android-sdk:latest.release")
