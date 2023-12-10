@@ -124,6 +124,7 @@ fun ScreenDescription(navController: NavController, modifier: Modifier = Modifie
                         val dateFormat = SimpleDateFormat("dd/MM/yyyy")
                         if(description != null && pseudonyme != null){
                             val db = Firebase.firestore
+                            RegistrationActivity.user.uid = MainActivity.auth.uid.toString()
                             RegistrationActivity.user.pseudonyme = pseudonyme
                             RegistrationActivity.user.description = description
                             RegistrationActivity.user.dateCreation = Calendar.getInstance().time
