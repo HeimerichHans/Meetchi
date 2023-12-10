@@ -55,4 +55,5 @@
     <string name="title_activity_description">DescriptionActivity</string>
     <string name="title_activity_phone_number">PhoneNumberActivity</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="newCards">Charger à nouveau des profils</string>
 </resources>

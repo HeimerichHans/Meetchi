@@ -27,13 +27,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.meetchi.MainActivity
+import com.example.meetchi.model.Exclude
 import com.example.meetchi.model.User
-import com.example.meetchi.ui.theme.MeetchiTheme
 import com.example.meetchi.navigation.ScreenHome
+import com.example.meetchi.ui.theme.MeetchiTheme
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
+
 
 /*
 *******************************************************
@@ -46,25 +48,76 @@ import com.google.firebase.ktx.Firebase
 *******************************************************
 */
 class HomeActivity : ComponentActivity() {
-    @SuppressLint("UnrememberedMutableState")
+    @SuppressLint("UnrememberedMutableState", "MutableCollectionMutableState")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val db = Firebase.firestore
-            var userDB by remember { mutableStateOf(User()) }
-            db.collection("User").document(MainActivity.auth.uid.toString()).get().addOnSuccessListener { document ->
-                if (document != null) {
-                    userDB = document.toObject<User>()!!
-                } else {
-                    Log.d("Firestore:Log", "Document Failed")
-                }
-            }.addOnFailureListener { exception ->
-                Log.d("Firestore:Log", "get failed with ", exception)
-            }
             MeetchiTheme {
-                Home(mutableStateOf(userDB))
+                var userDataLoaded by remember { mutableStateOf(false) }
+                var excludeDataLoaded by remember { mutableStateOf(false) }
+                var swipeDataLoaded by remember { mutableStateOf(false) }
+                val db = Firebase.firestore
+                var userDB by remember { mutableStateOf(User()) }
+                val listSwipe by remember { mutableStateOf(ArrayList<User>()) }
+                var excludeSwitch by remember { mutableStateOf(Exclude()) }
+                if(userDataLoaded){
+                    if( excludeDataLoaded){
+                        if(swipeDataLoaded){
+                            Home(mutableStateOf(userDB), mutableStateOf(listSwipe))
+                        } else {
+                            db.collection("User")
+                                .whereEqualTo("account_ready",true)
+                                .whereEqualTo("genre",getGenderSearch(userDB))
+                                .limit(100)
+                                .get()
+                                .addOnSuccessListener { documents ->
+                                    for (document in documents) {
+                                        if(document.id != FirebaseAuth.getInstance().uid.toString() && !excludeSwitch.contains_uid(document.id)){
+                                            val user = document.toObject<User>()
+                                            listSwipe.add(user)
+                                        }
+                                    }
+                                    swipeDataLoaded = true
+                                }
+                                .addOnFailureListener { exception ->
+                                    Log.w("Firestore:Log", "Error getting documents: ", exception)
+                                }
+                        }
+                    } else {
+                        db.collection("Exclude")
+                            .get()
+                            .addOnSuccessListener { documents->
+                                for(document in documents){
+                                    val uid = document.toObject<Exclude>()
+                                    Log.d("Firestore:Log","Exclude ${uid.last_insert} ${uid.uid_1} ${uid.uid_2} ")
+                                    excludeSwitch = uid
+                                }
+                                excludeDataLoaded = true
+                            }
+                    }
+                }else{
+                    db.collection("User").document(FirebaseAuth.getInstance().uid.toString()).get().addOnSuccessListener { document ->
+                        if (document != null) {
+                            userDB = document.toObject<User>()!!
+                        } else {
+                            Log.d("Firestore:Log", "Document Failed")
+                        }
+                        userDataLoaded = true
+                    }.addOnFailureListener { exception ->
+                        Log.d("Firestore:Log", "get failed with ", exception)
+                    }
+                }
             }
         }
+    }
+}
+
+fun getGenderSearch(user: User): String{
+    return when(user.genre){
+        "1"-> {"2"}
+        "2"-> {"1"}
+        "3"-> {"3"}
+        else -> {"3"}
     }
 }
 
@@ -82,7 +135,7 @@ class HomeActivity : ComponentActivity() {
 */
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun Home(userDB : MutableState<User> , modifier: Modifier = Modifier) {
+fun Home(userDB : MutableState<User> ,listSwipe: MutableState<ArrayList<User>>) {
     val navController = rememberNavController()
 
     val items = listOf(
@@ -123,7 +176,7 @@ fun Home(userDB : MutableState<User> , modifier: Modifier = Modifier) {
         NavHost(navController, startDestination = ScreenHome.Like.route, Modifier.padding(innerPadding)) {
             composable(ScreenHome.Like.route) {
                 // Contenu pour l'écran "Swipe"
-                SwipeScreen()
+                SwipeScreen(userDB = userDB, listSwipe = listSwipe)
             }
             composable(ScreenHome.Chat.route) {
                 // Contenu pour l'écran "Chat"
@@ -131,7 +184,7 @@ fun Home(userDB : MutableState<User> , modifier: Modifier = Modifier) {
             }
             composable(ScreenHome.Profile.route) {
                 // Contenu pour l'écran "Profile"
-                ProfileScreen(userDB)
+                ProfileScreen(userDB = userDB)
             }
         }
     }
