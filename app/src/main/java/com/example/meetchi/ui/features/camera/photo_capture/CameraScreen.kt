@@ -54,26 +54,26 @@ import com.example.meetchi.util.StorageActivity
 
 
 @Composable
-fun CameraScreen() {
+fun CameraScreen(cameraSelected: CameraSelector) {
     MeetchiTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            CameraContent()
+            CameraContent(cameraSelected)
         }
     }
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-private fun CameraContent() {
+private fun CameraContent(cameraSelected:CameraSelector) {
     val context = LocalContext.current
     val lifeCycleOwner = LocalLifecycleOwner.current
     val cameraController = remember {
         LifecycleCameraController(context).apply {
             bindToLifecycle(lifeCycleOwner)
-            cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+            cameraSelector = cameraSelected
         }
     }
 
