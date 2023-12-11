@@ -1,5 +1,6 @@
 package com.example.meetchi.ui.features.camera
 
+import androidx.camera.core.CameraSelector
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -16,35 +17,50 @@ import com.google.accompanist.permissions.rememberPermissionState
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun CameraXMainScreen() {
+fun CameraXMainScreen(cameraSelected: CameraSelector) {
     val cameraPermissionState: PermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
     CameraXMainContent(
         hasPermission = cameraPermissionState.status.isGranted,
-        onRequestPermission = cameraPermissionState::launchPermissionRequest
+        onRequestPermission = cameraPermissionState::launchPermissionRequest,
+        cameraSelected = cameraSelected
     )
 }
 
 @Composable
 fun CameraXMainContent(
     hasPermission: Boolean,
-    onRequestPermission: () ->  Unit
+    onRequestPermission: () ->  Unit,
+    cameraSelected:CameraSelector
 ) {
     if(hasPermission){
-        CameraScreen()
+        CameraScreen(cameraSelected)
     }else{
         NoPermissionScreen(onRequestPermission)
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "id:Samsung S9+", showSystemUi = true)
 @Composable
-fun CameraXPreview() {
+fun CameraXFrontPreview() {
     MeetchiTheme{
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            CameraXMainScreen()
+            CameraXMainScreen(CameraSelector.DEFAULT_FRONT_CAMERA)
+        }
+    }
+}
+
+@Preview(showBackground = true, device = "id:Samsung S9+", showSystemUi = true)
+@Composable
+fun CameraXBackPreview() {
+    MeetchiTheme{
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            CameraXMainScreen(CameraSelector.DEFAULT_BACK_CAMERA)
         }
     }
 }
