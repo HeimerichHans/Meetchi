@@ -68,6 +68,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx:22.3.0")
     implementation("com.google.android.material:material:1.10.0")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

@@ -42,14 +42,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.meetchi.MainActivity
 import com.example.meetchi.R
-import com.example.meetchi.util.AccountCheckerReadyActivity
+import com.example.meetchi.ui.TermsServicesActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
+import com.example.meetchi.util.AccountCheckerReadyActivity
 import com.example.meetchi.util.AnimationCancel
 import com.example.meetchi.util.BackArrowAuth
 import com.example.meetchi.util.IconAuth
@@ -130,6 +130,8 @@ class RegisterMailActivity : ComponentActivity() {
                         isTermsAccepted
             }
         }
+
+        val context = LocalContext.current
 
         Column (
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -221,6 +223,8 @@ class RegisterMailActivity : ComponentActivity() {
                 Text(stringResource(R.string.termsAccept))
                 TextButton(onClick = {
                     //INTENT TERMS
+                    val intent = Intent(context, TermsServicesActivity::class.java)
+                    context.startActivity(intent)
                 })
                 {
                     Text(stringResource(R.string.terms))
