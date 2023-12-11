@@ -8,7 +8,6 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.example.meetchi.R
 import com.example.meetchi.ui.match.AcceptingMatchActivity
-import com.example.meetchi.ui.registration.RegistrationActivity.Companion.context
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -25,10 +24,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
     }
     @SuppressLint("ServiceCast")
     fun generateNotification(title: String, message: String){
-        val intent = Intent(this,AcceptingMatchActivity::class.java)
+        val intent = Intent(this, AcceptingMatchActivity::class.java)
 
-        val pendingIntent = PendingIntent.getActivity(this,0,intent,
-            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         var builder: NotificationCompat.Builder = NotificationCompat.Builder(applicationContext,
             channelId).setSmallIcon(R.drawable.meetchi_app_icon)
@@ -38,6 +36,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
             .setContentTitle(title)
             .setContentText(message)
             .setContentIntent(pendingIntent)
+
+        var context = this
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(1, builder.build())

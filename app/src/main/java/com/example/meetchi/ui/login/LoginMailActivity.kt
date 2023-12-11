@@ -55,6 +55,7 @@ import com.example.meetchi.ui.theme.MeetchiTheme
 import com.example.meetchi.util.AnimationCancel
 import com.example.meetchi.util.BackArrowAuth
 import com.example.meetchi.util.IconAuth
+import com.google.firebase.auth.FirebaseAuth
 
 /*
 *******************************************************
@@ -241,7 +242,7 @@ class MailActivity : ComponentActivity() {
     *******************************************************
     */
     fun performLogin(username: String, password: String) {
-        MainActivity.auth.signInWithEmailAndPassword(username, password)
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(username, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("UserStatus", "Connection success")

@@ -17,6 +17,7 @@ import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import java.util.Arrays
 
@@ -91,11 +92,11 @@ class FacebookAuthActivity : ComponentActivity() {
     private fun handleFacebookAccessToken(token: AccessToken) {
         // Crée des informations d'identification Firebase avec le jeton d'accès Facebook
         val credential = FacebookAuthProvider.getCredential(token.token)
-        MainActivity.auth.signInWithCredential(credential)
+        FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Connexion réussie, met à jour l'interface utilisateur avec les informations de l'utilisateur connecté
-                    val user = MainActivity.auth.currentUser
+                    val user = FirebaseAuth.getInstance().currentUser
                     updateUI(user)
                 } else {
                     // En cas d'échec de la connexion, affiche un message à l'utilisateur

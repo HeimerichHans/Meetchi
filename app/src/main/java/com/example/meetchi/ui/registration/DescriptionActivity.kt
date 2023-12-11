@@ -44,6 +44,7 @@ import com.example.meetchi.util.AccountCheckerReadyActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
 import com.example.meetchi.util.AnimationCancel
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
 import com.google.firebase.messaging.messaging
@@ -131,7 +132,7 @@ fun ScreenDescription(navController: NavController, modifier: Modifier = Modifie
                             runBlocking {
                                 token = Firebase.messaging.token.await()
                             }
-                            RegistrationActivity.user.uid = MainActivity.auth.uid.toString()
+                            RegistrationActivity.user.uid = FirebaseAuth.getInstance().uid.toString()
                             RegistrationActivity.user.pseudonyme = pseudonyme
                             RegistrationActivity.user.description = description
                             RegistrationActivity.user.dateCreation = Calendar.getInstance().time
@@ -139,7 +140,7 @@ fun ScreenDescription(navController: NavController, modifier: Modifier = Modifie
                             RegistrationActivity.user.account_ready = true
                             RegistrationActivity.user.token = token
                             db.collection("User")
-                                .document(MainActivity.auth.uid.toString())
+                                .document(FirebaseAuth.getInstance().uid.toString())
                                 .set(RegistrationActivity.user, SetOptions.merge())
                                 .addOnSuccessListener { documentReference ->
                                     Log.d("Firestore:Log", "DocumentSnapshot added")

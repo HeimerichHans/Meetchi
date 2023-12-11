@@ -15,6 +15,7 @@ import com.example.meetchi.ui.HomeActivity
 import com.example.meetchi.ui.registration.RegistrationActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.ktx.firestore
@@ -46,7 +47,7 @@ class AccountCheckerReadyActivity : ComponentActivity() {
                     // Obtenir une référence à la base de données Firestore
                     val db = Firebase.firestore
                     // Obtenir une référence au document utilisateur dans Firestore
-                    val userDB = db.collection("User").document(MainActivity.auth.uid.toString())
+                    val userDB = db.collection("User").document(FirebaseAuth.getInstance().uid.toString())
                     // Récupérer les données du document utilisateur
                     userDB.get().addOnSuccessListener { document ->
                         if (document != null) {
@@ -60,7 +61,7 @@ class AccountCheckerReadyActivity : ComponentActivity() {
                                     }
                                     val database = Firebase.firestore
                                     database.collection("User")
-                                        .document(MainActivity.auth.uid.toString())
+                                        .document(FirebaseAuth.getInstance().uid.toString())
                                         .set(User)
                                         .addOnSuccessListener {
                                             Log.d("Firestore:Log", "User: ${User.uid} Token: ${User.token}")

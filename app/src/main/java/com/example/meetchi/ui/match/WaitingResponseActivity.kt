@@ -69,21 +69,18 @@ fun sendNotification(tokenCible: String) {
     val client = OkHttpClient()
     val url = "https://fcm.googleapis.com/fcm/send"
     var json = JSONObject()
-    var jsonData = JSONObject()
     var jsonNotification = JSONObject()
     jsonNotification.put("title","Meetchi")
     jsonNotification.put("body","Vous avez un Like")
-    jsonData.put("userId","")
     json.put("notification",jsonNotification)
-    json.put("data",jsonData)
     json.put("to",tokenCible)
     val JSON: MediaType = "application/json; charset=utf-8".toMediaType()
     val body: RequestBody = RequestBody.create(JSON, json.toString())
-    Log.d("Firestore:Log","${body}")
+    Log.d("Firestore:Log","${json}")
     val request = Request.Builder()
         .url(url)
         .post(body)
-        .header("Authorization", "Bearer AAAAdKUpDsk:APA91bFxtUv_rz7o2-vnQDPD_0cJiE7qAYxgOMTsgOlCuwSDKUX17VgmGuyZkyAI8zeqIEHoWY-VyBTPG453bjUXwUHx_3nGMQ9wfmkRQM0jpxtlJYv1q1uaV8K9JoJZ67rdk7wzL8T5")
+        .header("Authorization", "key=AAAAdKUpDsk:APA91bFxtUv_rz7o2-vnQDPD_0cJiE7qAYxgOMTsgOlCuwSDKUX17VgmGuyZkyAI8zeqIEHoWY-VyBTPG453bjUXwUHx_3nGMQ9wfmkRQM0jpxtlJYv1q1uaV8K9JoJZ67rdk7wzL8T5")
         .build()
     client.newCall(request).enqueue(object : Callback {
         override fun onResponse(call: Call, response: Response) {

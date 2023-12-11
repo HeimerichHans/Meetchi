@@ -123,7 +123,7 @@ fun SwipeScreen(userDB : MutableState<User>, listSwipe: MutableState<ArrayList<U
                                 }
                                 userForExclusion.uid?.let { excludeSwitch.insert_uid(it) }
                                 database.collection("Exclude")
-                                    .document(MainActivity.auth.uid.toString())
+                                    .document(FirebaseAuth.getInstance().uid.toString())
                                     .set(excludeSwitch)
                                     .addOnSuccessListener {
                                         Log.d("Firestore:Log", "DocumentSnapshot added")
@@ -238,7 +238,7 @@ fun SwipeScreen(userDB : MutableState<User>, listSwipe: MutableState<ArrayList<U
                         offsetX = 0f
                         offsetY = 0f
                         val intent = Intent(context, WaitingResponseActivity::class.java)
-                        intent.putExtra("userToken","${listSwipe.value[0]}")
+                        intent.putExtra("userToken","${listSwipe.value[0].token}")
                         listSwipe.value.remove(listSwipe.value[0])
                         context?.startActivity(intent, AnimationCancel.CancelAnimation(context))
                     }
