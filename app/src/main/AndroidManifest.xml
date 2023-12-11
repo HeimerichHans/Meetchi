@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -17,6 +17,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Meetchi"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_meetchi" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/purple_700" />
+
+        <activity
+            android:name=".ui.match.AcceptingMatchActivity"
+            android:exported="false"
+            android:label="@string/title_activity_accepting_match"
+            android:theme="@style/Theme.Meetchi"
+            tools:ignore="AppLinkUrlError">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+            </activity>
+        <activity
+            android:name=".ui.match.WaitingResponseActivity"
+            android:exported="false"
+            android:label="@string/title_activity_waiting_response"
+            android:theme="@style/Theme.Meetchi" />
         <activity
             android:name=".ui.TermsServicesActivity"
             android:exported="false"
@@ -34,12 +61,6 @@
             android:label="@string/title_activity_registration"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Meetchi" />
-        <activity
-            android:name=".ui.ChatActivity"
-            android:exported="false"
-            android:label="@string/title_activity_chat"
-            android:theme="@style/Theme.Meetchi"
-            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.login.RegisterMailActivity"
             android:exported="false"
@@ -100,6 +121,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".util.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

@@ -1,6 +1,7 @@
 package com.example.meetchi.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.util.Log
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -31,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -38,11 +40,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import com.example.meetchi.MainActivity
 import com.example.meetchi.R
 import com.example.meetchi.model.Exclude
 import com.example.meetchi.model.User
+import com.example.meetchi.ui.login.RegisterMailActivity
+import com.example.meetchi.ui.match.WaitingResponseActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
+import com.example.meetchi.util.AccountCheckerReadyActivity
+import com.example.meetchi.util.AnimationCancel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
@@ -85,6 +92,7 @@ fun SwipeScreen(userDB : MutableState<User>, listSwipe: MutableState<ArrayList<U
             }
             Box()
             {
+                val context = LocalContext.current
                 var excludeSwitch by remember { mutableStateOf(Exclude()) }
                 val screenWidth = LocalConfiguration.current.screenWidthDp.dp.value
                 var offsetX by remember { mutableFloatStateOf(0f) }
@@ -105,12 +113,10 @@ fun SwipeScreen(userDB : MutableState<User>, listSwipe: MutableState<ArrayList<U
                 }
                 LaunchedEffect(excludeSwipe) {
                     if(excludeSwipe){
-                        Log.d("Firestore:Log", "LOG 2")
                         val database = Firebase.firestore
                         database.collection("Exclude")
                             .get()
                             .addOnSuccessListener { documents->
-                                Log.d("Firestore:Log", "LOG 3")
                                 for(document in documents){
                                     val uid = document.toObject<Exclude>()
                                     excludeSwitch = uid
@@ -120,7 +126,6 @@ fun SwipeScreen(userDB : MutableState<User>, listSwipe: MutableState<ArrayList<U
                                     .document(MainActivity.auth.uid.toString())
                                     .set(excludeSwitch)
                                     .addOnSuccessListener {
-                                        Log.d("Firestore:Log", "LOG 4")
                                         Log.d("Firestore:Log", "DocumentSnapshot added")
                                         listSwipe.value.remove(listSwipe.value[0])
                                         offsetX = 0f
@@ -229,12 +234,15 @@ fun SwipeScreen(userDB : MutableState<User>, listSwipe: MutableState<ArrayList<U
                         offsetX = 0F
                     }
                     if(!isDrag && offsetX > 5 * screenWidth ){
-                        listSwipe.value.remove(listSwipe.value[0])
+
                         offsetX = 0f
                         offsetY = 0f
+                        val intent = Intent(context, WaitingResponseActivity::class.java)
+                        intent.putExtra("userToken","${listSwipe.value[0]}")
+                        listSwipe.value.remove(listSwipe.value[0])
+                        context?.startActivity(intent, AnimationCancel.CancelAnimation(context))
                     }
                     if(!isDrag && offsetX < 5 * -screenWidth && !excludeSwipe){
-                        Log.d("Firestore:Log", "LOG 1")
                         userForExclusion = listSwipe.value[0]
                         excludeSwipe = true
                     }

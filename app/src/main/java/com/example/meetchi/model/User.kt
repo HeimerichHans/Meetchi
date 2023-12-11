@@ -22,4 +22,5 @@ data class User(
     var prenom: String? = null,
     var pseudonyme: String? = null,
     var genre: String? = null,
+    var token: String? = null
 )

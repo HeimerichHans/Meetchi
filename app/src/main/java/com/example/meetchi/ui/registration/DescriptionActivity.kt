@@ -46,6 +46,9 @@ import com.example.meetchi.util.AnimationCancel
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
+import com.google.firebase.messaging.messaging
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -124,12 +127,17 @@ fun ScreenDescription(navController: NavController, modifier: Modifier = Modifie
                         val dateFormat = SimpleDateFormat("dd/MM/yyyy")
                         if(description != null && pseudonyme != null){
                             val db = Firebase.firestore
+                            var token: String? = null
+                            runBlocking {
+                                token = Firebase.messaging.token.await()
+                            }
                             RegistrationActivity.user.uid = MainActivity.auth.uid.toString()
                             RegistrationActivity.user.pseudonyme = pseudonyme
                             RegistrationActivity.user.description = description
                             RegistrationActivity.user.dateCreation = Calendar.getInstance().time
                             RegistrationActivity.user.dateUpdate = Calendar.getInstance().time
                             RegistrationActivity.user.account_ready = true
+                            RegistrationActivity.user.token = token
                             db.collection("User")
                                 .document(MainActivity.auth.uid.toString())
                                 .set(RegistrationActivity.user, SetOptions.merge())

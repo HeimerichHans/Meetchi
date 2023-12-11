@@ -15,8 +15,13 @@ import com.example.meetchi.ui.HomeActivity
 import com.example.meetchi.ui.registration.RegistrationActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
 import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
+import com.google.firebase.messaging.messaging
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 
 /*
 *********************************************************************************
@@ -49,10 +54,21 @@ class AccountCheckerReadyActivity : ComponentActivity() {
                             val User = document.toObject<User>()
                             if (User != null) {
                                 if(User.account_ready == true){
-                                    // Rediriger vers l'activité d'accueil si le compte est prêt
-                                    Log.d("Firestore:Log", "DocumentSnapshot data: ${User.account_ready} ${User.nom} ${User.prenom}")
-                                    val intent = Intent(this@AccountCheckerReadyActivity, HomeActivity::class.java)
-                                    startActivity(intent, AnimationCancel.CancelAnimation(this@AccountCheckerReadyActivity))
+                                    var token: String? = null
+                                    runBlocking {
+                                        User.token = Firebase.messaging.token.await()
+                                    }
+                                    val database = Firebase.firestore
+                                    database.collection("User")
+                                        .document(MainActivity.auth.uid.toString())
+                                        .set(User)
+                                        .addOnSuccessListener {
+                                            Log.d("Firestore:Log", "User: ${User.uid} Token: ${User.token}")
+                                            // Rediriger vers l'activité d'accueil si le compte est prêt
+                                            Log.d("Firestore:Log", "DocumentSnapshot data: ${User.account_ready} ${User.nom} ${User.prenom}")
+                                            val intent = Intent(this@AccountCheckerReadyActivity, HomeActivity::class.java)
+                                            startActivity(intent, AnimationCancel.CancelAnimation(this@AccountCheckerReadyActivity))
+                                        }
                                 }
                                 else{
                                     // Rediriger vers l'activité d'enregistrement si le compte n'est pas prêt
