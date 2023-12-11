@@ -52,6 +52,8 @@ android {
 
 dependencies {
 
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.google.firebase:firebase-messaging:10.2.1")
     implementation("org.jetbrains.kotlin:kotlin-reflect:latest.release")
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
     implementation("com.google.firebase:firebase-firestore")
