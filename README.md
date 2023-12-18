@@ -2,6 +2,16 @@
 
 ## Note de patch
 
+### Version Alpha 0.2.0.0
+
+    [MTC-40] Création de l'envellope de version Alpha 0.2.0.0
+    [MTC-39] Page d'attente d'acceptation et notification Swipe droite
+    [MTC-38] Ajout activité photo arrière
+    [MTC-37] Ajout des termes et services
+    [MTC-33] Ajout activité photo avant
+    [MTC-28] Ajout interface de Swipe
+    [MTC-25] Ajout retour d'erreur Login et Enregistrement
+
 ### Version Alpha 0.1.0.0
 
     [MTC-36] Création de l'envellope de version Alpha 0.1.0.0
