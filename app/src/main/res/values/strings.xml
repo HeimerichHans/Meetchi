@@ -14,7 +14,9 @@
     <string name="facebook_client_token">0fd57a62fa1d2bdb9a3c23bf7ec29403</string>
     <string name="title_activity_facebook_auth">FacebookAuthActivity</string>
     <string name="register">Inscription</string>
+    <string name="regregister">Inscrivez-vous</string>
     <string name="login">Connexion</string>
+    <string name="loglogin">Connectez-vous</string>
     <string name="logout">Déconnexion</string>
     <string name="mail">E-mail</string>
     <string name="password">Mot de passe</string>
@@ -53,4 +55,10 @@
     <string name="title_activity_description">DescriptionActivity</string>
     <string name="title_activity_phone_number">PhoneNumberActivity</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_terms_services">TermsServices</string>
+    <string name="terms_and_conditions">terms_conditions</string>
+    <string name="newCards">Charger à nouveau des profils</string>
+    <string name="title_activity_camerax_activity">CameraXActivty</string>
+    <string name="title_activity_waiting_response">WaitingResponseActivity</string>
+    <string name="title_activity_accepting_match">AcceptingMatchActivity</string>
 </resources>

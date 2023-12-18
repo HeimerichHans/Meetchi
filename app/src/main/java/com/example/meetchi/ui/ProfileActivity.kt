@@ -38,6 +38,7 @@ import com.example.meetchi.ui.login.AuthActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
 import com.example.meetchi.util.AnimationCancel
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
 import java.util.Calendar
@@ -79,7 +80,7 @@ fun ProfileScreen(userDB: MutableState<User>) {
                         val db = Firebase.firestore
                         // Mise à jour des données de l'utilisateur dans Firestore
                         db.collection("User")
-                            .document(MainActivity.auth.uid.toString())
+                            .document(FirebaseAuth.getInstance().uid.toString())
                             .set(userDB.value, SetOptions.merge())
                             .addOnSuccessListener { documentReference ->
                                 Log.d("Firestore:Log", "Document update")
@@ -101,7 +102,7 @@ fun ProfileScreen(userDB: MutableState<User>) {
             Button(
                 onClick = {
                     // Handle login action
-                    MainActivity.auth.signOut()
+                    FirebaseAuth.getInstance().signOut()
                     Log.d("UserStatus", "Logout success")
                     val intent = Intent(context, AuthActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -125,16 +126,16 @@ fun ProfileScreen(userDB: MutableState<User>) {
 *******************************************************
 */
 @Composable
-fun ProfilPresentation(toto : MutableState<User>){
+fun ProfilPresentation(user : MutableState<User>){
     val calendar = Calendar.getInstance()
     var age = 0
-    if(toto.value.dateNaissance != null){
-        calendar.time = toto.value.dateNaissance!!
+    if(user.value.dateNaissance != null){
+        calendar.time = user.value.dateNaissance!!
         age = Calendar.getInstance().get(Calendar.YEAR) - calendar.get(Calendar.YEAR)
     }
     // Affichage du pseudonyme et de l'âge
     Text(
-        text = "${toto.value.pseudonyme}, $age",
+        text = "${user.value.pseudonyme}, $age",
         fontWeight = FontWeight.Bold,
         fontSize = 25.sp,
         modifier = Modifier.padding(horizontal = 30.dp)
@@ -247,7 +248,7 @@ fun ProfilParameter(userDB : MutableState<User>){
 *******************************************************
 */
 @SuppressLint("UnrememberedMutableState")
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "id:Samsung S9+", showSystemUi = true)
 @Composable
 fun ProfilePreview() {
     // Initialisation d'un utilisateur factice pour l'aperçu

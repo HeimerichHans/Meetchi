@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.meetchi.R
 import com.example.meetchi.ui.login.AuthActivity
+import com.example.meetchi.ui.login.RegisterMailActivity
 import com.example.meetchi.ui.theme.MeetchiTheme
 
 /*
@@ -124,8 +125,47 @@ public fun BackArrowAuth(context: Context)
 */
 fun onIconClick(context: Context) {
     val intent = Intent(context, AuthActivity::class.java)
+    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
     context.startActivity(intent, AnimationCancel.CancelAnimation(context))
 }
+
+/*
+**************************************************************
+*            Fonction Composable: BackArrowAuth              *
+**************************************************************
+|  Description:                                              |
+|  Cette fonction composable affiche une flèche de retour et |
+|  permet de définir une action à exécuter lorsqu'elle est   |
+|  cliquée.                                                  |
+**************************************************************
+*/
+@Composable
+public fun BackArrowTerms(context: Context)
+{
+    Row (
+        modifier = Modifier
+    ){
+        Icon(imageVector = Icons.Filled.ArrowBack,
+            contentDescription = null,
+            modifier = Modifier.size(70.dp).padding(start = 25.dp, top = 25.dp).clickable { onIconClickTerms(context) })
+    }
+}
+
+/*
+***************************************************************
+*                  Fonction: onIconClick                      *
+***************************************************************
+|  Description:                                               |
+|  Cette fonction définit l'action à exécuter lorsqu'on clique|
+|  sur l'icône de retour.                                     |
+***************************************************************
+*/
+fun onIconClickTerms(context: Context) {
+    val intent = Intent(context, RegisterMailActivity::class.java)
+    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+    context.startActivity(intent, AnimationCancel.CancelAnimation(context))
+}
+
 
 /*
 ***************************************************************
@@ -153,7 +193,7 @@ private fun IconAuthPreview() {
 |  flèche de retour.                                          |
 ***************************************************************
 */
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "id:Samsung S9+", showSystemUi = true)
 @Composable
 private fun BackArrowAuthPreview() {
     MeetchiTheme (){

@@ -35,12 +35,9 @@ import kotlinx.coroutines.launch
 */
 class MainActivity : ComponentActivity() {
 
-    companion object{
-        lateinit var auth: FirebaseAuth
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = FirebaseAuth.getInstance()
+        val auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
         setContent {
             MeetchiTheme {

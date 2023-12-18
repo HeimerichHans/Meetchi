@@ -88,7 +88,7 @@ fun ColorTest(name: String, modifier: Modifier = Modifier, context: Context) {
 |  préférences partagées.                             |
 *******************************************************
 */
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "id:Samsung S9+", showSystemUi = true)
 @Composable
 fun ColorTestPreview() {
     val context = LocalContext.current
