@@ -53,6 +53,7 @@ import com.example.meetchi.util.AccountCheckerReadyActivity
 import com.example.meetchi.util.AnimationCancel
 import com.example.meetchi.util.BackArrowAuth
 import com.example.meetchi.util.IconAuth
+import com.google.firebase.auth.FirebaseAuth
 
 /*
 *******************************************************
@@ -258,7 +259,7 @@ class RegisterMailActivity : ComponentActivity() {
    *******************************************************
    */
     fun performRegister(username: String, password: String) {
-        MainActivity.auth.createUserWithEmailAndPassword(username, password)
+       FirebaseAuth.getInstance().createUserWithEmailAndPassword(username, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Succès de l'inscription, mettre à jour l'interface utilisateur avec les informations de l'utilisateur connecté

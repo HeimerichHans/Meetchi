@@ -55,6 +55,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
 import com.example.meetchi.util.IconAuth
+import com.google.firebase.auth.FirebaseAuth
 
 class AuthActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,7 +117,7 @@ class AuthActivity : ComponentActivity() {
     *******************************************************
     */
     private fun signInWithCredential(credential: AuthCredential) {
-        MainActivity.auth.signInWithCredential(credential)
+        FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Connexion réussie, mettre à jour l'interface

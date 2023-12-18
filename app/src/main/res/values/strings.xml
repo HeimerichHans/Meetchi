@@ -59,4 +59,6 @@
     <string name="terms_and_conditions">terms_conditions</string>
     <string name="newCards">Charger à nouveau des profils</string>
     <string name="title_activity_camerax_activity">CameraXActivty</string>
+    <string name="title_activity_waiting_response">WaitingResponseActivity</string>
+    <string name="title_activity_accepting_match">AcceptingMatchActivity</string>
 </resources>
